@@ -5,6 +5,8 @@ import Contact from './views/Contact'
 import NewsArticle from './views/NewsArticle'
 import Customers from './views/Customers'
 import GuestLayout from './layout/GuestLayout'
+import AdminLayout from './layout/AdminLayout'
+import Dashboard from './views/Dashboard'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,16 @@ const router = createBrowserRouter([
       },
     ]
   },
+  {
+    path: '/administrator',
+    element: <AdminLayout/>,
+    children: [
+      {
+        path: '/administrator/dashboard',
+        element: <Dashboard/>,
+      }
+    ]
+  }
 ])
 
 export default router
