@@ -7,9 +7,6 @@ import FloatingButton from './components/FloatingButton'
 function LangController({ children }) {
   const [language, setLanguage] = useState("en");
 
-  useEffect(() => {
-    console.log(language)
-  }, [language])
   return (
     <>
       <langContext.Provider value={{ language }}>

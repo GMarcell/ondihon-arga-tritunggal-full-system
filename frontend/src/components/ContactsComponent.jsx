@@ -15,7 +15,7 @@ import { ContactsWord } from "../bilinggual";
 
 export default function ContactsComponent() {
   const {language} = useContext(langContext)
-  console.log(ContactsWord.title[language])
+
   return (
     <section
       className="px-8 py-16 bg-gray-200 min-h-[60vh] flex justify-center items-center"
