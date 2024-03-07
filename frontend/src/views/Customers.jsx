@@ -1,15 +1,13 @@
-import React from 'react'
-import LangController from '../LangController'
-import CustomersComponent from '../components/CustomersComponent'
+import React from "react";
+import LangController from "../LangController";
+import CustomersComponent from "../components/CustomersComponent";
 
 function Customers() {
   return (
     <>
-      <LangController>
-        <CustomersComponent/>
-      </LangController>
+      <CustomersComponent />
     </>
-  )
+  );
 }
 
-export default Customers
+export default Customers;

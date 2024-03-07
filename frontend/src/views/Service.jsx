@@ -1,14 +1,12 @@
-import LangController from "../LangController"
-import ServiceComponent from "../components/ServiceComponent"
+import LangController from "../LangController";
+import ServiceComponent from "../components/ServiceComponent";
 
 function Service() {
   return (
     <>
-      <LangController>
-        <ServiceComponent/>
-      </LangController>
+      <ServiceComponent />
     </>
-  )
+  );
 }
 
-export default Service
+export default Service;

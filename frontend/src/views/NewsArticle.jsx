@@ -1,15 +1,13 @@
-import React from 'react'
-import LangController from '../LangController'
-import ArticleNewsComponent from '../components/ArticleNewsComponent'
+import React from "react";
+import LangController from "../LangController";
+import ArticleNewsComponent from "../components/ArticleNewsComponent";
 
 function NewsArticle() {
   return (
     <>
-      <LangController>
-        <ArticleNewsComponent/>
-      </LangController>
+      <ArticleNewsComponent />
     </>
-  )
+  );
 }
 
-export default NewsArticle
+export default NewsArticle;
