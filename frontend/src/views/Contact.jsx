@@ -1,5 +1,5 @@
 import LangController from "../LangController";
-import ContactsComponent from "../components/ContactsComponent";
+import ContactsComponent from "../components/guest/ContactsComponent";
 
 function Contact() {
   return (

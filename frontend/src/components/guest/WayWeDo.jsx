@@ -1,8 +1,8 @@
 
 import { Typography } from "@material-tailwind/react";
 import React, { useContext } from "react";
-import langContext from "../hooks/langContext";
-import { wayWeDoWord } from "../bilinggual";
+import langContext from "../../hooks/langContext";
+import { wayWeDoWord } from "../../bilinggual";
 
 export default function WayWeDo() {
   const {language} = useContext(langContext)

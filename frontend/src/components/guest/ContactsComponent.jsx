@@ -9,9 +9,9 @@ import { IoCall } from "react-icons/io5";
 import { IoMdMail } from "react-icons/io";
 import { BsBrowserEdge } from "react-icons/bs";
 import { FaRegBuilding } from "react-icons/fa";
-import langContext from "../hooks/langContext";
+import langContext from "../../hooks/langContext";
 import { useContext } from "react";
-import { ContactsWord } from "../bilinggual";
+import { ContactsWord } from "../../bilinggual";
 
 export default function ContactsComponent() {
   const {language} = useContext(langContext)

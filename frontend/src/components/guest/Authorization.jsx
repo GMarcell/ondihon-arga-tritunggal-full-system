@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import {
   Typography,
 } from "@material-tailwind/react";
-import langContext from "../hooks/langContext";
-import { Auth } from "../bilinggual";
+import langContext from "../../hooks/langContext";
+import { Auth } from "../../bilinggual";
 
 function Authorization() {
   const {language} = useContext(langContext)

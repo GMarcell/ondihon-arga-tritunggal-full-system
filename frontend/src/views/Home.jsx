@@ -1,11 +1,11 @@
 import LangController from "../LangController";
-import Authorization from "../components/Authorization";
-import ContactsComponent from "../components/ContactsComponent";
-import CustomersComponent from "../components/CustomersComponent";
+import Authorization from "../components/guest/Authorization";
+import ContactsComponent from "../components/guest/ContactsComponent";
+import CustomersComponent from "../components/guest/CustomersComponent";
 import Hero from "../components/Hero";
-import ServiceComponent from "../components/ServiceComponent";
-import VisionMision from "../components/VisionMission";
-import WayWeDo from "../components/WayWeDo";
+import ServiceComponent from "../components/guest/ServiceComponent";
+import VisionMision from "../components/guest/VisionMission";
+import WayWeDo from "../components/guest/WayWeDo";
 
 function Home() {
   return (

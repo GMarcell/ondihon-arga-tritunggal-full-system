@@ -1,5 +1,5 @@
 import LangController from "../LangController";
-import ServiceComponent from "../components/ServiceComponent";
+import ServiceComponent from "../components/guest/ServiceComponent";
 
 function Service() {
   return (

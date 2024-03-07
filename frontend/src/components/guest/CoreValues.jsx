@@ -1,7 +1,5 @@
 
 import React from "react";
-import CoreValueImage from "@/assets/CoreValue.png";
-import Image from "next/image";
 import {
   List,
   ListItem,
@@ -85,8 +83,8 @@ function CoreValues() {
         </div>
 
         <div className="flex justify-center items-center bg-[#FF881B]">
-          <Image
-            src={CoreValueImage}
+          <img
+            src='/image/core-value/CoreValue/png'
             alt="about-us-image"
             className="w-fit"
           />

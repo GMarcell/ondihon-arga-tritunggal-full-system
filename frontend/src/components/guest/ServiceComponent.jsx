@@ -1,8 +1,8 @@
 
 import { Button, Typography } from "@material-tailwind/react";
 import React, { useContext } from "react";
-import langContext from "../hooks/langContext";
-import { serviceWord } from "../bilinggual";
+import langContext from "../../hooks/langContext";
+import { serviceWord } from "../../bilinggual";
 
 export default function ServiceComponent() {
   const {language} = useContext(langContext)

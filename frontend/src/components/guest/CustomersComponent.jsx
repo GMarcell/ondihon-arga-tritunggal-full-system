@@ -1,9 +1,8 @@
-
 import { Typography } from "@material-tailwind/react";
-import { CLIENTSName } from "../constants";
 import React, { useContext } from "react";
-import langContext from "../hooks/langContext";
-import { customerWord } from "../bilinggual";
+import langContext from "../../hooks/langContext";
+import { customerWord } from "../../bilinggual";
+import { CLIENTSName } from "../../constants";
 
 export default function CustomersComponent() {
   const {language} = useContext(langContext)

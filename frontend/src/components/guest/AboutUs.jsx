@@ -1,5 +1,4 @@
-import AboutUsImage from "../../assets/AboutUs.png";
-import Image from "next/image";
+
 import {
   List,
   ListItem,
@@ -18,8 +17,8 @@ function AboutUs() {
       <div className="md:grid md:grid-cols-2 gap-4 py-10">
         {/* <div className="md:flex gap-4"> */}
         <div className="">
-          <Image
-            src={AboutUsImage}
+          <img
+            src='/image/about-us/AboutUs.png'
             alt="about-us-image"
             className="h-[80vh] rounded"
           />

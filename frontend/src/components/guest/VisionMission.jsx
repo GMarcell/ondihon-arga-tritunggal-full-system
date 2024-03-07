@@ -7,10 +7,10 @@ import {
   ListItemPrefix,
   Typography,
 } from "@material-tailwind/react";
-import Lines from "../components/sub/Lines";
+import Lines from "../sub/Lines";
 import { FaDotCircle } from "react-icons/fa";
-import langContext from "../hooks/langContext";
-import { VisionMisionWord } from "../bilinggual";
+import langContext from "../../hooks/langContext";
+import { VisionMisionWord } from "../../bilinggual";
 
 
 function VisionMision() {
