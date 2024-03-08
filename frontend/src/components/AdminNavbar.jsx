@@ -1,24 +1,15 @@
 import React from "react";
 import Dropdown from "../components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import navbarimage from "../assets/img/layout/Navbar.png";
-import { BsArrowBarUp } from "react-icons/bs";
-import { FiSearch } from "react-icons/fi";
-import { RiMoonFill, RiSunFill } from "react-icons/ri";
-import {
-  IoMdNotificationsOutline,
-  IoMdInformationCircleOutline,
-} from "react-icons/io";
-import avatar from "../assets/img/avatars/avatar4.png";
+import avatar from "../assets/img/avatars/mainAvatar.jpg";
 
 const AdminNavbar = (props) => {
   const { onOpenSidenav, brandText } = props;
 
   return (
-    <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white p-2 backdrop-blur-xl">
+    <nav className="top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl p-2">
       <span
-        className="flex cursor-pointer text-3xl text-gray-600 xl:hidden"
+        className="flex cursor-pointer text-3xl text-gray-600 lg:hidden"
         onClick={onOpenSidenav}
       >
         <FiAlignJustify className="h-8 w-8" />

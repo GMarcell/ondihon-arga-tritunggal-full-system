@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useStateContext } from "../hooks/stateContext";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, Outlet } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import AdminNavbar from "../components/AdminNavbar";
+import AdminFooter from "../components/AdminFooter";
 
 function AdminLayout() {
   const { user, token } = useStateContext();
@@ -15,33 +16,22 @@ function AdminLayout() {
   const currentPath = useLocation().pathname.split('/').pop()
 
   return (
-    <div className="flex h-full w-full">
+    <div className="flex h-full w-full bg-slate-300">
       <Sidebar open={open} onClose={() => setOpen(false)} />
-      <div className="h-full w-full bg-lightPrimary dark:!bg-navy-900">
+      <div className="h-full w-full bg-lightPrimary">
         {/* Main Content */}
         <main
-          className={`mx-[12px] h-full flex-none transition-all md:pr-2 xl:ml-[313px]`}
+          className={`h-full flex-none transition-all md:pr-2 lg:ml-[293px] bg-white`}
         >
           {/* Routes */}
-          <div className="h-full">
+          <div className="h-svh">
             <AdminNavbar
               onOpenSidenav={() => setOpen(true)}
-              logoText={"Horizon UI Tailwind React"}
               brandText={currentPath}
             />
-            {/* <div className="pt-5s mx-auto mb-auto h-full min-h-[84vh] p-2 md:pr-2">
-              <Routes>
-                {getRoutes(routes)}
-
-                <Route
-                  path="/"
-                  element={<Navigate to="/admin/default" replace />}
-                />
-              </Routes>
-            </div>
             <div className="p-3">
-              <Footer />
-            </div> */}
+            <Outlet/>
+            </div>
           </div>
         </main>
       </div>

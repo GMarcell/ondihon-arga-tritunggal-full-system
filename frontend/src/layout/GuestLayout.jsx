@@ -7,9 +7,9 @@ import { Navigate } from "react-router-dom";
 function GuestLayout() {
   const {token} = useStateContext()
 
-  if (token){
-    return <Navigate to='/administrator/dashboard'/>
-  }
+  // if (token){
+  //   return <Navigate to='/administrator/dashboard'/>
+  // }
 
   return (
     <>

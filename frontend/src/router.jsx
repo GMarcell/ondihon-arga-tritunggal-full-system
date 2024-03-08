@@ -1,12 +1,12 @@
 import {createBrowserRouter} from 'react-router-dom'
-import Home from './views/Home'
-import Service from './views/Service'
-import Contact from './views/Contact'
-import NewsArticle from './views/NewsArticle'
-import Customers from './views/Customers'
 import GuestLayout from './layout/GuestLayout'
+import Home from './views/guest/Home'
+import Contact from './views/guest/Contact'
+import Service from './views/guest/Service'
+import NewsArticle from './views/guest/NewsArticle'
+import Customers from './views/guest/Customers'
 import AdminLayout from './layout/AdminLayout'
-import Dashboard from './views/Dashboard'
+import Dashboard from './views/admin/Dashboard'
 
 const router = createBrowserRouter([
   {
@@ -42,7 +42,23 @@ const router = createBrowserRouter([
       {
         path: '/administrator/dashboard',
         element: <Dashboard/>,
-      }
+      },
+      {
+        path: '/administrator/user-management',
+        element: <Dashboard/>,
+      },
+      {
+        path: '/administrator/customer-management',
+        element: <Dashboard/>,
+      },
+      {
+        path: '/administrator/news-management',
+        element: <Dashboard/>,
+      },
+      {
+        path: '/administrator/article-management',
+        element: <Dashboard/>,
+      },
     ]
   }
 ])
