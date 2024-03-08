@@ -4,7 +4,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { Navigate } from "react-router-dom";
 
 export default function SignIn() {
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     handleSubmit,
@@ -29,7 +29,7 @@ export default function SignIn() {
           </div>
           <input
             type="text"
-            placeholder="Type here"
+            placeholder="Username"
             className="input input-bordered w-full"
             {...register("username")}
           />
@@ -40,9 +40,16 @@ export default function SignIn() {
               <span className="label-text">Password</span>
             </div>
             <label className="input input-bordered flex items-center gap-2">
-              <input type={showPassword ? 'text' : 'password'} className="grow" placeholder="Search" />
-              <btn className="btn btn-square btn-ghost" onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+              <input
+                type={showPassword ? "text" : "password"}
+                className="grow"
+                placeholder="Password"
+              />
+              <btn
+                className="btn btn-square btn-link"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
               </btn>
             </label>
           </label>
