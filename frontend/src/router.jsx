@@ -11,8 +11,13 @@ import UserManagementList from './views/admin/user-management/list'
 import ArticleManagementList from './views/admin/article-management/list'
 import CustomerManagementList from './views/admin/customer-management/list'
 import NewsManagementList from './views/admin/news-management/list'
+import SignIn from './views/guest/SignIn'
 
 const router = createBrowserRouter([
+  {
+    path: '/signin',
+    element: <SignIn/>
+  },
   {
     path: '/',
     element: <GuestLayout/>,
