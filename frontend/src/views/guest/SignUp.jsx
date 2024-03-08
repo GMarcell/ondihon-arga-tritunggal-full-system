@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { Navigate } from "react-router-dom";
 import axiosClient from "../../axios-client";
+import { useStateContext } from "../../hooks/stateContext";
 
-export default function SignIn() {
+export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -13,9 +13,18 @@ export default function SignIn() {
     formState: { errors },
   } = useForm();
 
+  const {setUser, setToken} = useStateContext()
+
   const onSubmit = (data) => {
-    axiosClient.post("/signin", data).then((response) => {
+    axiosClient.post("/signup", data).then((response) => {
       console.log(response);
+      setUser(response.data.user)
+      setToken(response.data.token)
+    }).catch(error => {
+      const response = error.response
+      if(response && response.status == 422){
+        console.log(response.data.error)
+      }
     });
   };
 
@@ -25,7 +34,7 @@ export default function SignIn() {
       <div className=" w-full max-w-full flex-col items-center md:pl-4 lg:max-w-[420px] p-4 bg- rounded-lg shadow-md bg-[#0A055B]">
         <h4 className="mb-2.5 text-4xl font-bold text-white">Sign In</h4>
         <p className="mb-9 ml-1 text-base text-slate-300">
-          Enter your username and password to sign in!
+          Enter your username and password to sign up!
         </p>
 
         <label className="form-control w-full">

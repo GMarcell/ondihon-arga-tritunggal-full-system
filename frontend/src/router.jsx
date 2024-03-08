@@ -12,11 +12,16 @@ import ArticleManagementList from './views/admin/article-management/list'
 import CustomerManagementList from './views/admin/customer-management/list'
 import NewsManagementList from './views/admin/news-management/list'
 import SignIn from './views/guest/SignIn'
+import SignUp from './views/guest/SignUp'
 
 const router = createBrowserRouter([
   {
     path: '/signin',
     element: <SignIn/>
+  },
+  {
+    path: '/signup',
+    element: <SignUp/>
   },
   {
     path: '/',
