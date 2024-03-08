@@ -1,35 +1,67 @@
+import { useForm } from "react-hook-form";
 import InputField from "../../components/fields/InputField";
+import { Input } from "@material-tailwind/react";
+import { useState } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 export default function SignIn() {
+  const [showPassword, setShowPassword] = useState(false)
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => console.log(data);
+
   return (
     <div className="flex h-svh w-svh items-center justify-center ">
       {/* Sign in section */}
       <div className=" w-full max-w-full flex-col items-center md:pl-4 lg:max-w-[420px] p-4 bg- rounded-lg shadow-md bg-[#0A055B]">
         <h4 className="mb-2.5 text-4xl font-bold text-white">Sign In</h4>
         <p className="mb-9 ml-1 text-base text-slate-300">
-          Enter your email and password to sign in!
+          Enter your username and password to sign in!
         </p>
-        {/* Email */}
-        <InputField
-          variant="auth"
-          extra="mb-3"
-          label="Email*"
-          placeholder="mail@simmmple.com"
-          id="email"
-          type="text"
-        />
+
+        <label className="form-control w-full">
+          <div className="label">
+            <span className="label-text">Username</span>
+          </div>
+          <input
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered w-full"
+            {...register("username")}
+          />
+        </label>
+        <div className="my-3">
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text">Password</span>
+            </div>
+            <label className="input input-bordered flex items-center gap-2">
+              <input type={showPassword ? 'text' : 'password'} className="grow" placeholder="Search" />
+              <btn className="btn btn-square btn-ghost" onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+              </btn>
+            </label>
+          </label>
+        </div>
 
         {/* Password */}
-        <InputField
+        {/* <InputField
           variant="auth"
           extra="mb-3"
           label="Password*"
           placeholder="Min. 8 characters"
           id="password"
           type="password"
-        />
-        {/* Checkbox */}
-        <button className="linear mt-2 w-full rounded-xl bg-[#E8AD19] py-[12px] text-base font-medium text-[#0A055B] transition duration-200 active:bg-brand-700">
+        /> */}
+        <button
+          className="linear mt-2 w-full rounded-xl bg-[#E8AD19] py-[12px] text-base font-medium text-[#0A055B] transition duration-200"
+          onClick={handleSubmit(onSubmit)}
+        >
           Sign In
         </button>
       </div>
