@@ -7,6 +7,10 @@ import NewsArticle from './views/guest/NewsArticle'
 import Customers from './views/guest/Customers'
 import AdminLayout from './layout/AdminLayout'
 import Dashboard from './views/admin/Dashboard'
+import UserManagementList from './views/admin/user-management/list'
+import ArticleManagementList from './views/admin/article-management/list'
+import CustomerManagementList from './views/admin/customer-management/list'
+import NewsManagementList from './views/admin/news-management/list'
 
 const router = createBrowserRouter([
   {
@@ -45,19 +49,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/administrator/user-management',
-        element: <Dashboard/>,
+        element: <UserManagementList/>,
       },
       {
         path: '/administrator/customer-management',
-        element: <Dashboard/>,
+        element: <CustomerManagementList/>,
       },
       {
         path: '/administrator/news-management',
-        element: <Dashboard/>,
+        element: <NewsManagementList/>,
       },
       {
         path: '/administrator/article-management',
-        element: <Dashboard/>,
+        element: <ArticleManagementList/>,
       },
     ]
   }

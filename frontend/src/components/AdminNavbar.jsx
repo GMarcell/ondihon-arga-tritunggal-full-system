@@ -2,9 +2,11 @@ import React from "react";
 import Dropdown from "../components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
 import avatar from "../assets/img/avatars/mainAvatar.jpg";
+import { useStateContext } from "../hooks/stateContext";
 
 const AdminNavbar = (props) => {
   const { onOpenSidenav, brandText } = props;
+  const {setToken} = useStateContext()
 
   return (
     <nav className="top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl p-2">
@@ -34,12 +36,12 @@ const AdminNavbar = (props) => {
           children={
             <div className="flex w-56 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500">
               <div className="flex flex-col p-4">
-                <a
-                  href=" "
+                <div
+                onClick={() => setToken()}
                   className="mt-3 text-md font-medium text-red-500 hover:text-red-500 transition duration-150 ease-out hover:ease-in"
                 >
                   Log Out
-                </a>
+                </div>
               </div>
             </div>
           }
