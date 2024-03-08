@@ -1,8 +1,7 @@
 import { useForm } from "react-hook-form";
-import InputField from "../../components/fields/InputField";
-import { Input } from "@material-tailwind/react";
 import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { Navigate } from "react-router-dom";
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false)
@@ -48,22 +47,18 @@ export default function SignIn() {
             </label>
           </label>
         </div>
-
-        {/* Password */}
-        {/* <InputField
-          variant="auth"
-          extra="mb-3"
-          label="Password*"
-          placeholder="Min. 8 characters"
-          id="password"
-          type="password"
-        /> */}
         <button
           className="linear mt-2 w-full rounded-xl bg-[#E8AD19] py-[12px] text-base font-medium text-[#0A055B] transition duration-200"
           onClick={handleSubmit(onSubmit)}
         >
           Sign In
         </button>
+        <a
+          className="linear mt-2 w-full rounded-xl py-[12px] text-base font-medium btn btn-outline btn-error transition duration-200"
+          href="/"
+        >
+          Cancel
+        </a>
       </div>
     </div>
   );
