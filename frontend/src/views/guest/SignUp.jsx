@@ -5,27 +5,29 @@ import axiosClient from "../../axios-client";
 import { useStateContext } from "../../hooks/stateContext";
 
 export default function SignUp() {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+    confirmPassword: false,
+  });
+  const [formErrors, setFormErrors] = useState(null);
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm();
+  const { handleSubmit, register } = useForm();
 
-  const {setUser, setToken} = useStateContext()
+  const { setUser, setToken } = useStateContext();
 
   const onSubmit = (data) => {
-    axiosClient.post("/signup", data).then((response) => {
-      console.log(response);
-      setUser(response.data.user)
-      setToken(response.data.token)
-    }).catch(error => {
-      const response = error.response
-      if(response && response.status == 422){
-        console.log(response.data.error)
-      }
-    });
+    axiosClient
+      .post("/signup", data)
+      .then((response) => {
+        setUser(response.data.user);
+        setToken(response.data.token);
+      })
+      .catch((error) => {
+        const response = error.response;
+        if (response && response.status == 422) {
+          setFormErrors(response.data.errors);
+        }
+      });
   };
 
   return (
@@ -33,9 +35,32 @@ export default function SignUp() {
       {/* Sign in section */}
       <div className=" w-full max-w-full flex-col items-center md:pl-4 lg:max-w-[420px] p-4 bg- rounded-lg shadow-md bg-[#0A055B]">
         <h4 className="mb-2.5 text-4xl font-bold text-white">Sign In</h4>
-        <p className="mb-9 ml-1 text-base text-slate-300">
-          Enter your username and password to sign up!
-        </p>
+        <p className="mb-9 ml-1 text-base text-slate-300">sign up!</p>
+
+        {formErrors && (
+          <div role="alert" className="alert alert-error">
+            <div className="flex flex-col">
+              {Object.keys(formErrors).map((key) => (
+                <div className="flex gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="stroke-current shrink-0 h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span key={key}>{formErrors[key][0]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <label className="form-control w-full">
           <div className="label">
@@ -45,7 +70,18 @@ export default function SignUp() {
             type="text"
             placeholder="Username"
             className="input input-bordered w-full"
-            {...register("username")}
+            {...register("name")}
+          />
+        </label>
+        <label className="form-control w-full">
+          <div className="label">
+            <span className="label-text">Email</span>
+          </div>
+          <input
+            type="email"
+            placeholder="Email"
+            className="input input-bordered w-full"
+            {...register("email")}
           />
         </label>
         <div className="my-3">
@@ -55,15 +91,51 @@ export default function SignUp() {
             </div>
             <label className="input input-bordered flex items-center gap-2">
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword.password ? "text" : "password"}
                 className="grow"
                 placeholder="Password"
+                {...register("password")}
               />
               <btn
                 className="btn btn-square btn-link"
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={() =>
+                  setShowPassword({
+                    ...showPassword,
+                    password: !showPassword.password,
+                  })
+                }
               >
-                {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+                {showPassword.password ? <FaRegEye /> : <FaRegEyeSlash />}
+              </btn>
+            </label>
+          </label>
+        </div>
+        <div className="my-3">
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text">Password Confirmation</span>
+            </div>
+            <label className="input input-bordered flex items-center gap-2">
+              <input
+                type={showPassword.confirmPassword ? "text" : "password"}
+                className="grow"
+                placeholder="Password"
+                {...register("password_confirmation")}
+              />
+              <btn
+                className="btn btn-square btn-link"
+                onClick={() =>
+                  setShowPassword({
+                    ...showPassword,
+                    confirmPassword: !showPassword.confirmPassword,
+                  })
+                }
+              >
+                {showPassword.confirmPassword ? (
+                  <FaRegEye />
+                ) : (
+                  <FaRegEyeSlash />
+                )}
               </btn>
             </label>
           </label>

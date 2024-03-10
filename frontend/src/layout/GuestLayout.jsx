@@ -2,22 +2,32 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import LangController from "../LangController";
 import { useStateContext } from "../hooks/stateContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 function GuestLayout() {
-  const {token} = useStateContext()
+  const { token } = useStateContext();
 
-  // if (token){
-  //   return <Navigate to='/administrator/dashboard'/>
-  // }
+  const path = useLocation().pathname.split("/").pop();
 
-  return (
-    <>
-      <LangController>
+  if (token) {
+    return <Navigate to="/administrator/dashboard" />;
+  }
+
+  if (path.includes("sign")) {
+    return (
+      <>
         <Outlet />
-      </LangController>
-    </>
-  );
+      </>
+    );
+  } else {
+    return (
+      <>
+        <LangController>
+          <Outlet />
+        </LangController>
+      </>
+    );
+  }
 }
 
 export default GuestLayout;

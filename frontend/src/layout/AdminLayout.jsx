@@ -3,12 +3,12 @@ import { useStateContext } from "../hooks/stateContext";
 import { Navigate, useLocation, Outlet } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import AdminNavbar from "../components/AdminNavbar";
-import AdminFooter from "../components/AdminFooter";
 
 function AdminLayout() {
   const { user, token } = useStateContext();
   const [open, setOpen] = useState(true);
 
+  console.log(token)
   if (!token) {
     return <Navigate to="/" />;
   }

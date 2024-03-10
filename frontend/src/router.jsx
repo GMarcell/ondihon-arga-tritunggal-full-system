@@ -16,14 +16,6 @@ import SignUp from './views/guest/SignUp'
 
 const router = createBrowserRouter([
   {
-    path: '/signin',
-    element: <SignIn/>
-  },
-  {
-    path: '/signup',
-    element: <SignUp/>
-  },
-  {
     path: '/',
     element: <GuestLayout/>,
     children: [
@@ -46,6 +38,14 @@ const router = createBrowserRouter([
       {
         path: '/customers',
         element: <Customers/>
+      },
+      {
+        path: '/signup',
+        element: <SignUp/>
+      },
+      {
+        path: '/signin',
+        element: <SignIn/>
       },
     ]
   },
