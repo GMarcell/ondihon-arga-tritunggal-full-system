@@ -1,22 +1,30 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { Navigate } from "react-router-dom";
 import axiosClient from "../../axios-client";
+import { useStateContext } from "../../hooks/stateContext";
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
+  const [formErrors, setFormErrors] = useState(null);
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm();
+  const { setUser, setToken } = useStateContext();
+
+  const { handleSubmit, register } = useForm();
 
   const onSubmit = (data) => {
-    axiosClient.post("/signin", data).then((response) => {
-      console.log(response);
-    });
+    axiosClient
+      .post("/login", data)
+      .then((response) => {
+        setUser(response.data.user);
+        setToken(response.data.token);
+      })
+      .catch((error) => {
+        const response = error.response;
+        if (response && response.status == 422) {
+          setFormErrors(response.data.errors);
+        }
+      });
   };
 
   return (
@@ -28,15 +36,40 @@ export default function SignIn() {
           Enter your username and password to sign in!
         </p>
 
+        {formErrors && (
+          <div role="alert" className="alert alert-error">
+            <div className="flex flex-col">
+              {Object.keys(formErrors).map((key) => (
+                <div className="flex gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="stroke-current shrink-0 h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span key={key}>{formErrors[key][0]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <label className="form-control w-full">
           <div className="label">
-            <span className="label-text">Username</span>
+            <span className="label-text">email</span>
           </div>
           <input
-            type="text"
-            placeholder="Username"
+            type="email"
+            placeholder="Email"
             className="input input-bordered w-full"
-            {...register("username")}
+            {...register("email")}
           />
         </label>
         <div className="my-3">
@@ -49,6 +82,7 @@ export default function SignIn() {
                 type={showPassword ? "text" : "password"}
                 className="grow"
                 placeholder="Password"
+                {...register("password")}
               />
               <btn
                 className="btn btn-square btn-link"
