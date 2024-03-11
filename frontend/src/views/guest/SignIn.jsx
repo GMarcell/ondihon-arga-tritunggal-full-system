@@ -24,7 +24,7 @@ export default function SignIn() {
         setIsLoading(false);
       })
       .catch((error) => {
-        setIsLoading(false)
+        setIsLoading(false);
         const response = error.response;
         if (response && response.status == 422) {
           setFormErrors(response.data.errors);
@@ -70,51 +70,54 @@ export default function SignIn() {
           </div>
         )}
 
-        <label className="form-control w-full">
-          <div className="label">
-            <span className="label-text">email</span>
-          </div>
-          <input
-            type="email"
-            placeholder="Email"
-            className="input input-bordered w-full"
-            disabled={isLoading}
-            {...register("email")}
-          />
-        </label>
-        <div className="my-3">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">Password</span>
+              <span className="label-text">email</span>
             </div>
-            <label className="input input-bordered flex items-center gap-2">
-              <input
-                type={showPassword ? "text" : "password"}
-                className="grow"
-                placeholder="Password"
-                {...register("password")}
-                disabled={isLoading}
-              />
-              <btn
-                className="btn btn-square btn-link"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
-              </btn>
-            </label>
+            <input
+              type="email"
+              placeholder="Email"
+              className="input input-bordered w-full"
+              disabled={isLoading}
+              {...register("email")}
+            />
           </label>
-        </div>
-        <button
-          className="linear mt-2 w-full rounded-xl bg-[#E8AD19] py-[12px] text-base font-medium text-[#0A055B] transition duration-200"
-          onClick={handleSubmit(onSubmit)}
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <span className="loading loading-spinner loading-md"></span>
-          ) : (
-            "Sign In"
-          )}
-        </button>
+          <div className="my-3">
+            <label className="form-control w-full">
+              <div className="label">
+                <span className="label-text">Password</span>
+              </div>
+              <label className="input input-bordered flex items-center gap-2">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="grow"
+                  placeholder="Password"
+                  {...register("password")}
+                  disabled={isLoading}
+                />
+                <btn
+                  className="btn btn-square btn-link"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+                </btn>
+              </label>
+            </label>
+          </div>
+          <button
+            className="linear mt-2 w-full rounded-xl bg-[#E8AD19] py-[12px] text-base font-medium text-[#0A055B] transition duration-200"
+            // onClick={handleSubmit(onSubmit)}
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <span className="loading loading-spinner loading-md"></span>
+            ) : (
+              "Sign In"
+            )}
+          </button>
+        </form>
         <a
           className="linear mt-2 w-full rounded-xl py-[12px] text-base font-medium btn btn-outline btn-error transition duration-200"
           href="/"

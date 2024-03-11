@@ -67,110 +67,112 @@ export default function SignUp() {
           </div>
         )}
 
-        <label className="form-control w-full">
-          <div className="label">
-            <span className="label-text">Username</span>
-          </div>
-          <input
-            type="text"
-            placeholder="Username"
-            className="input input-bordered w-full"
-            {...register("name")}
-            disabled={isLoading}
-          />
-        </label>
-        <label className="form-control w-full">
-          <div className="label">
-            <span className="label-text">Email</span>
-          </div>
-          <input
-            type="email"
-            placeholder="Email"
-            className="input input-bordered w-full"
-            {...register("email")}
-            disabled={isLoading}
-          />
-        </label>
-        <div className="my-3">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">Password</span>
+              <span className="label-text">Username</span>
             </div>
-            <label className="input input-bordered flex items-center gap-2">
-              <input
-                type={showPassword.password ? "text" : "password"}
-                className="grow"
-                placeholder="Password"
-                {...register("password")}
-                disabled={isLoading}
-              />
-              <btn
-                className="btn btn-square btn-link"
-                onClick={() =>
-                  setShowPassword({
-                    ...showPassword,
-                    password: !showPassword.password,
-                  })
-                }
-              >
-                {showPassword.password ? <FaRegEye /> : <FaRegEyeSlash />}
-              </btn>
-            </label>
+            <input
+              type="text"
+              placeholder="Username"
+              className="input input-bordered w-full"
+              {...register("name")}
+              disabled={isLoading}
+            />
           </label>
-        </div>
-        <div className="my-3">
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">Password Confirmation</span>
+              <span className="label-text">Email</span>
             </div>
-            <label className="input input-bordered flex items-center gap-2">
-              <input
-                type={showPassword.confirmPassword ? "text" : "password"}
-                className="grow"
-                placeholder="Password"
-                {...register("password_confirmation")}
-                disabled={isLoading}
-              />
-              <btn
-                className="btn btn-square btn-link"
-                onClick={() =>
-                  setShowPassword({
-                    ...showPassword,
-                    confirmPassword: !showPassword.confirmPassword,
-                  })
-                }
-              >
-                {showPassword.confirmPassword ? (
-                  <FaRegEye />
-                ) : (
-                  <FaRegEyeSlash />
-                )}
-              </btn>
-            </label>
+            <input
+              type="email"
+              placeholder="Email"
+              className="input input-bordered w-full"
+              {...register("email")}
+              disabled={isLoading}
+            />
           </label>
-        </div>
-        <button
-          className="linear mt-2 w-full rounded-xl bg-[#E8AD19] py-[12px] text-base font-medium text-[#0A055B] transition duration-200"
-          onClick={handleSubmit(onSubmit)}
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <span className="loading loading-spinner loading-md"></span>
-          ) : (
-            "Sign In"
-          )}
-        </button>
-        <a
-          className="linear mt-2 w-full rounded-xl py-[12px] text-base font-medium btn btn-outline btn-error transition duration-200"
-          href="/"
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <span className="loading loading-spinner loading-md"></span>
-          ) : (
-            "Cancel"
-          )}
-        </a>
+          <div className="my-3">
+            <label className="form-control w-full">
+              <div className="label">
+                <span className="label-text">Password</span>
+              </div>
+              <label className="input input-bordered flex items-center gap-2">
+                <input
+                  type={showPassword.password ? "text" : "password"}
+                  className="grow"
+                  placeholder="Password"
+                  {...register("password")}
+                  disabled={isLoading}
+                />
+                <btn
+                  className="btn btn-square btn-link"
+                  onClick={() =>
+                    setShowPassword({
+                      ...showPassword,
+                      password: !showPassword.password,
+                    })
+                  }
+                >
+                  {showPassword.password ? <FaRegEye /> : <FaRegEyeSlash />}
+                </btn>
+              </label>
+            </label>
+          </div>
+          <div className="my-3">
+            <label className="form-control w-full">
+              <div className="label">
+                <span className="label-text">Password Confirmation</span>
+              </div>
+              <label className="input input-bordered flex items-center gap-2">
+                <input
+                  type={showPassword.confirmPassword ? "text" : "password"}
+                  className="grow"
+                  placeholder="Password"
+                  {...register("password_confirmation")}
+                  disabled={isLoading}
+                />
+                <btn
+                  className="btn btn-square btn-link"
+                  onClick={() =>
+                    setShowPassword({
+                      ...showPassword,
+                      confirmPassword: !showPassword.confirmPassword,
+                    })
+                  }
+                >
+                  {showPassword.confirmPassword ? (
+                    <FaRegEye />
+                  ) : (
+                    <FaRegEyeSlash />
+                  )}
+                </btn>
+              </label>
+            </label>
+          </div>
+          <button
+            className="linear mt-2 w-full rounded-xl bg-[#E8AD19] py-[12px] text-base font-medium text-[#0A055B] transition duration-200"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <span className="loading loading-spinner loading-md"></span>
+            ) : (
+              "Sign In"
+            )}
+          </button>
+          <a
+            className="linear mt-2 w-full rounded-xl py-[12px] text-base font-medium btn btn-outline btn-error transition duration-200"
+            href="/"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <span className="loading loading-spinner loading-md"></span>
+            ) : (
+              "Cancel"
+            )}
+          </a>
+        </form>
       </div>
     </div>
   );
