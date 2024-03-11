@@ -16,6 +16,7 @@ export default function SignUp() {
   const { setUser, setToken } = useStateContext();
 
   const onSubmit = (data) => {
+    setFormErrors(null)
     axiosClient
       .post("/signup", data)
       .then((response) => {

@@ -13,6 +13,7 @@ export default function SignIn() {
   const { handleSubmit, register } = useForm();
 
   const onSubmit = (data) => {
+    setFormErrors(null)
     axiosClient
       .post("/login", data)
       .then((response) => {
@@ -23,6 +24,11 @@ export default function SignIn() {
         const response = error.response;
         if (response && response.status == 422) {
           setFormErrors(response.data.errors);
+        } else {
+          setFormErrors({
+            email: response.data.message
+          }
+          )
         }
       });
   };

@@ -3,10 +3,10 @@ import Dropdown from "../components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
 import avatar from "../assets/img/avatars/mainAvatar.jpg";
 import { useStateContext } from "../hooks/stateContext";
+import axiosClient from "../axios-client";
 
 const AdminNavbar = (props) => {
-  const { onOpenSidenav, brandText } = props;
-  const {setToken} = useStateContext()
+  const { onOpenSidenav, brandText, userName, handleLogout } = props;
 
   return (
     <nav className="top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl p-2">
@@ -23,6 +23,9 @@ const AdminNavbar = (props) => {
       </div>
 
       <div className="relative mt-[3px] flex h-[61px] flex-grow items-center justify-around gap-2 rounded-full px-2 py-2 shadow-shadow-500 md:flex-grow-0 md:gap-1 xl:gap-2">
+        <p className="shrink text-md font-bold capitalize text-black mr-4">
+          {userName}
+        </p>
         {/* Profile & Dropdown */}
         <Dropdown
           classNames={"py-2 top-8 -left-[180px] w-max"}
@@ -37,7 +40,7 @@ const AdminNavbar = (props) => {
             <div className="flex w-56 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500">
               <div className="flex flex-col p-4">
                 <div
-                onClick={() => setToken()}
+                  onClick={() => handleLogout()}
                   className="mt-3 text-md font-medium text-red-500 hover:text-red-500 transition duration-150 ease-out hover:ease-in"
                 >
                   Log Out
