@@ -41,7 +41,7 @@ const AdminNavbar = (props) => {
               <div className="flex flex-col p-4">
                 <div
                   onClick={() => handleLogout()}
-                  className="mt-3 text-md font-medium text-red-500 hover:text-red-500 transition duration-150 ease-out hover:ease-in"
+                  className="cursor-pointer mt-3 text-md font-medium text-red-500 hover:text-red-500 transition duration-150 ease-out hover:ease-in"
                 >
                   Log Out
                 </div>

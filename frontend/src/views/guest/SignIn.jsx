@@ -7,28 +7,31 @@ import { useStateContext } from "../../hooks/stateContext";
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const [formErrors, setFormErrors] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { setUser, setToken } = useStateContext();
 
   const { handleSubmit, register } = useForm();
 
   const onSubmit = (data) => {
-    setFormErrors(null)
+    setIsLoading(true);
+    setFormErrors(null);
     axiosClient
       .post("/login", data)
       .then((response) => {
         setUser(response.data.user);
         setToken(response.data.token);
+        setIsLoading(false);
       })
       .catch((error) => {
+        setIsLoading(false)
         const response = error.response;
         if (response && response.status == 422) {
           setFormErrors(response.data.errors);
         } else {
           setFormErrors({
-            email: response.data.message
-          }
-          )
+            email: response.data.message,
+          });
         }
       });
   };
@@ -75,6 +78,7 @@ export default function SignIn() {
             type="email"
             placeholder="Email"
             className="input input-bordered w-full"
+            disabled={isLoading}
             {...register("email")}
           />
         </label>
@@ -89,6 +93,7 @@ export default function SignIn() {
                 className="grow"
                 placeholder="Password"
                 {...register("password")}
+                disabled={isLoading}
               />
               <btn
                 className="btn btn-square btn-link"
@@ -102,14 +107,24 @@ export default function SignIn() {
         <button
           className="linear mt-2 w-full rounded-xl bg-[#E8AD19] py-[12px] text-base font-medium text-[#0A055B] transition duration-200"
           onClick={handleSubmit(onSubmit)}
+          disabled={isLoading}
         >
-          Sign In
+          {isLoading ? (
+            <span className="loading loading-spinner loading-md"></span>
+          ) : (
+            "Sign In"
+          )}
         </button>
         <a
           className="linear mt-2 w-full rounded-xl py-[12px] text-base font-medium btn btn-outline btn-error transition duration-200"
           href="/"
+          disabled={isLoading}
         >
-          Cancel
+          {isLoading ? (
+            <span className="loading loading-spinner loading-md"></span>
+          ) : (
+            "Cancel"
+          )}
         </a>
       </div>
     </div>
