@@ -29,7 +29,7 @@ function AdminLayout() {
   }
 
   return (
-    <div className="flex h-full w-full bg-slate-300">
+    <div className="flex h-fit w-full bg-slate-300">
       <Sidebar open={open} onClose={() => setOpen(false)} />
       <div className="h-full w-full bg-lightPrimary">
         {/* Main Content */}
@@ -37,7 +37,7 @@ function AdminLayout() {
           className={`h-full flex-none transition-all md:pr-2 lg:ml-[293px] bg-white`}
         >
           {/* Routes */}
-          <div className="h-svh">
+          <div className="h-fit">
             <AdminNavbar
               onOpenSidenav={() => setOpen(true)}
               brandText={currentPath}
