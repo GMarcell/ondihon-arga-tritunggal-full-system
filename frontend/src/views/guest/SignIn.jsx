@@ -48,46 +48,26 @@ export default function SignIn() {
         {formErrors && <ErrorNotification formError={formErrors} />}
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <label className="form-control w-full">
-            <div className="label">
-              <span className="label-text">email</span>
-            </div>
-            <input
-              type="email"
-              placeholder="Email"
-              className={`input text-black input-bordered w-full disabled:bg-slate-50 disabled:border-slate-50 bg-slate-50 ${
-                checkFormError(formErrors, "email") ? "input-error" : ""
-              }`}
-              disabled={isLoading}
-              {...register("email")}
-            />
-          </label>
+          <CustomInput
+            type="email"
+            labelText="Email"
+            disabled={isLoading}
+            errors={formErrors}
+            name="email"
+            hookForm={register("email")}
+          />
+
           <div className="my-3">
-            <label className="form-control w-full">
-              <div className="label">
-                <span className="label-text">Password</span>
-              </div>
-              <label
-                className={`input bg-slate-50 input-bordered flex items-center gap-2 text-black ${
-                  checkFormError(formErrors, "password") ? "input-error" : ""
-                }`}
-              >
-                <input
-                  type={showPassword ? "text" : "password"}
-                  className="grow"
-                  placeholder="Password"
-                  {...register("password")}
-                  disabled={isLoading}
-                />
-                <btn
-                  className="btn btn-square btn-link"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
-                </btn>
-              </label>
-            </label>
+            <CustomInput
+              type="password"
+              labelText="Password"
+              disabled={isLoading}
+              errors={formErrors}
+              name="password"
+              hookForm={register("password")}
+            />
           </div>
+
           <button
             className="linear mt-2 w-full rounded-xl bg-[#E8AD19] py-[12px] text-base font-medium text-[#0A055B] transition duration-200"
             type="submit"

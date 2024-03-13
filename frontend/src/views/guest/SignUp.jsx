@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../../hooks/stateContext";
+import CustomInput from "../../components/Input";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState({
@@ -45,100 +46,46 @@ export default function SignUp() {
         {formErrors && <ErrorNotification formError={formErrors} />}
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <label className="form-control w-full">
-            <div className="label">
-              <span className="label-text">Username</span>
-            </div>
-            <input
-              type="text"
-              placeholder="Username"
-              className={`input text-black input-bordered w-full disabled:bg-slate-50 disabled:border-slate-50 bg-slate-50 ${
-                checkFormError(formErrors, "name") ? "input-error" : ""
-              }`}
-              {...register("name")}
-              disabled={isLoading}
-            />
-          </label>
-          <label className="form-control w-full">
-            <div className="label">
-              <span className="label-text">Email</span>
-            </div>
-            <input
-              type="email"
-              placeholder="Email"
-              className={`input text-black input-bordered w-full disabled:bg-slate-50 disabled:border-slate-50 bg-slate-50 ${
-                checkFormError(formErrors, "email") ? "input-error" : ""
-              }`}
-              {...register("email")}
-              disabled={isLoading}
-            />
-          </label>
+          <CustomInput
+            type="text"
+            labelText="Username"
+            disabled={isLoading}
+            errors={formErrors}
+            name="name"
+            hookForm={register("name")}
+          />
+
+          <CustomInput
+            type="email"
+            labelText="Email"
+            disabled={isLoading}
+            errors={formErrors}
+            name="email"
+            hookForm={register("email")}
+          />
+
           <div className="my-3">
-            <label className="form-control w-full">
-              <div className="label">
-                <span className="label-text">Password</span>
-              </div>
-              <label
-                className={`input bg-slate-50 input-bordered flex items-center gap-2 text-black ${
-                  checkFormError(formErrors, "password") ? "input-error" : ""
-                }`}
-              >
-                <input
-                  type={showPassword.password ? "text" : "password"}
-                  className="grow"
-                  placeholder="Password"
-                  {...register("password")}
-                  disabled={isLoading}
-                />
-                <btn
-                  className="btn btn-square btn-link"
-                  onClick={() =>
-                    setShowPassword({
-                      ...showPassword,
-                      password: !showPassword.password,
-                    })
-                  }
-                >
-                  {showPassword.password ? <FaRegEye /> : <FaRegEyeSlash />}
-                </btn>
-              </label>
-            </label>
+            <CustomInput
+              type="password"
+              labelText="Password"
+              disabled={isLoading}
+              errors={formErrors}
+              name="password"
+              hookForm={register("password")}
+            />
           </div>
+
           <div className="my-3">
-            <label className="form-control w-full">
-              <div className="label">
-                <span className="label-text">Password Confirmation</span>
-              </div>
-              <label
-                className={`input bg-slate-50 input-bordered flex items-center gap-2 text-black ${
-                  checkFormError(formErrors, "password") ? "input-error" : ""
-                }`}
-              >
-                <input
-                  type={showPassword.confirmPassword ? "text" : "password"}
-                  className="grow"
-                  placeholder="Password"
-                  {...register("password_confirmation")}
-                  disabled={isLoading}
-                />
-                <btn
-                  className="btn btn-square btn-link"
-                  onClick={() =>
-                    setShowPassword({
-                      ...showPassword,
-                      confirmPassword: !showPassword.confirmPassword,
-                    })
-                  }
-                >
-                  {showPassword.confirmPassword ? (
-                    <FaRegEye />
-                  ) : (
-                    <FaRegEyeSlash />
-                  )}
-                </btn>
-              </label>
-            </label>
+            <CustomInput
+              type="password"
+              labelText="Password Confirmation"
+              disabled={isLoading}
+              errors={formErrors}
+              name="password"
+              hookForm={register("password_confirmation")}
+            />
           </div>
+
           <button
             className="linear mt-2 w-full rounded-xl bg-[#E8AD19] py-[12px] text-base font-medium text-[#0A055B] transition duration-200"
             type="submit"
