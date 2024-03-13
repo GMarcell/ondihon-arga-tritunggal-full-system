@@ -13,6 +13,8 @@ import CustomerManagementList from './views/admin/customer-management/list'
 import NewsManagementList from './views/admin/news-management/list'
 import SignIn from './views/guest/SignIn'
 import SignUp from './views/guest/SignUp'
+import UserCreate from './views/admin/user-management/form'
+import Form from './views/admin/user-management/form'
 
 const router = createBrowserRouter([
   {
@@ -60,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: '/administrator/user-management',
         element: <UserManagementList/>,
+      },
+      {
+        path: '/administrator/user-management/create',
+        element: <Form/>,
       },
       {
         path: '/administrator/customer-management',

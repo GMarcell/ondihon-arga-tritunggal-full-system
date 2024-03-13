@@ -37,7 +37,7 @@ function AdminLayout() {
           className={`h-full flex-none transition-all md:pr-2 lg:ml-[293px] bg-white`}
         >
           {/* Routes */}
-          <div className="h-fit">
+          <div className="h-fit min-h-screen">
             <AdminNavbar
               onOpenSidenav={() => setOpen(true)}
               brandText={currentPath}

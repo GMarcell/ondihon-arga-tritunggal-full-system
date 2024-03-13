@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../../axios-client";
 import { MdDelete, MdEdit } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 function UserManagementList() {
   const [isLoading, setisLoading] = useState(false);
@@ -33,7 +34,9 @@ function UserManagementList() {
       ) : (
         <>
           <div className="flex justify-end mb-3">
-            <button className="btn bg-[#0A055B] btn-md">Add New</button>
+            <button className="btn bg-[#0A055B] btn-md">
+              <Link to='/administrator/user-management/create'>Add New</Link>
+            </button>
           </div>
           <div className="overflow-x-auto bg-slate-600 rounded-sm">
             <table className="table">

@@ -78,7 +78,9 @@ export default function SignIn() {
             <input
               type="email"
               placeholder="Email"
-              className="input input-bordered w-full"
+              className={`input text-black input-bordered w-full disabled:bg-slate-50 disabled:border-slate-50 bg-slate-50 ${
+                checkFormError(formErrors, "email") ? "input-error" : ""
+              }`}
               disabled={isLoading}
               {...register("email")}
             />
@@ -88,7 +90,11 @@ export default function SignIn() {
               <div className="label">
                 <span className="label-text">Password</span>
               </div>
-              <label className="input input-bordered flex items-center gap-2">
+              <label
+                className={`input bg-slate-50 input-bordered flex items-center gap-2 text-black ${
+                  checkFormError(formErrors, "password") ? "input-error" : ""
+                }`}
+              >
                 <input
                   type={showPassword ? "text" : "password"}
                   className="grow"
@@ -107,7 +113,6 @@ export default function SignIn() {
           </div>
           <button
             className="linear mt-2 w-full rounded-xl bg-[#E8AD19] py-[12px] text-base font-medium text-[#0A055B] transition duration-200"
-            // onClick={handleSubmit(onSubmit)}
             type="submit"
             disabled={isLoading}
           >

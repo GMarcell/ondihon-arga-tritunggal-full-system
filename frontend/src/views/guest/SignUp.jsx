@@ -75,7 +75,9 @@ export default function SignUp() {
             <input
               type="text"
               placeholder="Username"
-              className="input input-bordered w-full"
+              className={`input text-black input-bordered w-full disabled:bg-slate-50 disabled:border-slate-50 bg-slate-50 ${
+                checkFormError(formErrors, "name") ? "input-error" : ""
+              }`}
               {...register("name")}
               disabled={isLoading}
             />
@@ -87,7 +89,9 @@ export default function SignUp() {
             <input
               type="email"
               placeholder="Email"
-              className="input input-bordered w-full"
+              className={`input text-black input-bordered w-full disabled:bg-slate-50 disabled:border-slate-50 bg-slate-50 ${
+                checkFormError(formErrors, "email") ? "input-error" : ""
+              }`}
               {...register("email")}
               disabled={isLoading}
             />
@@ -97,7 +101,9 @@ export default function SignUp() {
               <div className="label">
                 <span className="label-text">Password</span>
               </div>
-              <label className="input input-bordered flex items-center gap-2">
+              <label className={`input bg-slate-50 input-bordered flex items-center gap-2 text-black ${
+                checkFormError(formErrors, "password") ? "input-error" : ""
+              }`}>
                 <input
                   type={showPassword.password ? "text" : "password"}
                   className="grow"
@@ -124,7 +130,11 @@ export default function SignUp() {
               <div className="label">
                 <span className="label-text">Password Confirmation</span>
               </div>
-              <label className="input input-bordered flex items-center gap-2">
+              <label
+                className={`input bg-slate-50 input-bordered flex items-center gap-2 text-black ${
+                  checkFormError(formErrors, "password") ? "input-error" : ""
+                }`}
+              >
                 <input
                   type={showPassword.confirmPassword ? "text" : "password"}
                   className="grow"
