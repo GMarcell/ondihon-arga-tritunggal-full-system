@@ -4,6 +4,7 @@ import { useStateContext } from "../../../hooks/stateContext";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axiosClient from "../../../axios-client";
 import { checkFormError } from "../../../utils/checkErrors";
+import ErrorNotification from "../../../components/ErrorNotification";
 
 function Form() {
   const [showPassword, setShowPassword] = useState({
@@ -38,30 +39,7 @@ function Form() {
 
   return (
     <div className=" w-full max-w-full flex-col items-center md:pl-4 p-4 bg- rounded-lg shadow-md">
-      {formErrors && (
-        <div role="alert" className="alert alert-error">
-          <div className="flex flex-col">
-            {Object.keys(formErrors).map((key) => (
-              <div className="flex gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="stroke-current shrink-0 h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <span key={key}>{formErrors[key][0]}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {formErrors && <ErrorNotification formError={formErrors} />}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <label className="form-control w-full">
