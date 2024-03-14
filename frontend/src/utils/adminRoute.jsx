@@ -1,4 +1,4 @@
-import { MdHome, MdSupervisedUserCircle } from 'react-icons/md'
+import { MdHome, MdOutlineProductionQuantityLimits, MdSupervisedUserCircle } from 'react-icons/md'
 import { PiUsersThreeFill } from "react-icons/pi";
 import { GiNewspaper } from "react-icons/gi";
 import { TbArticleFilledFilled } from "react-icons/tb";
@@ -13,6 +13,11 @@ const adminRoute = [
     name: 'User Management',
     path: '/administrator/user-management',
     icon: <PiUsersThreeFill className="h-6 w-6" />,
+  },
+  {
+    name: 'Product Management',
+    path: '/administrator/product-management',
+    icon: <MdOutlineProductionQuantityLimits className="h-6 w-6" />,
   },
   {
     name: 'Customer Management',

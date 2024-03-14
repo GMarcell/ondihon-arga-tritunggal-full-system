@@ -15,6 +15,7 @@ import SignIn from './views/guest/SignIn'
 import SignUp from './views/guest/SignUp'
 import UserCreate from './views/admin/user-management/form'
 import Form from './views/admin/user-management/form'
+import ProductManagementList from './views/admin/product-management/list'
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: '/administrator/user-management/:id',
         element: <Form key={'userUpdate'}/>,
+      },
+      {
+        path: '/administrator/product-management',
+        element: <ProductManagementList/>,
       },
       {
         path: '/administrator/customer-management',
