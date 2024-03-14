@@ -2,9 +2,17 @@ import React, { useState } from "react";
 import { checkFormError } from "../utils/checkErrors";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
-function CustomInput({ type, labelText, disabled, errors, name, hookForm }) {
+function CustomInput({
+  type,
+  labelText,
+  disabled,
+  errors,
+  name,
+  hookForm,
+  useLabel = true,
+}) {
   const [showPassword, setShowPassword] = useState({
-    password: false
+    password: false,
   });
 
   if (type == "password") {
@@ -43,9 +51,11 @@ function CustomInput({ type, labelText, disabled, errors, name, hookForm }) {
 
   return (
     <label className="form-control w-full">
-      <div className="label">
-        <span className="label-text text-black font-bold">{labelText}</span>
-      </div>
+      {useLabel && (
+        <div className="label">
+          <span className="label-text text-black font-bold">{labelText}</span>
+        </div>
+      )}
       <input
         type={type}
         placeholder={labelText}

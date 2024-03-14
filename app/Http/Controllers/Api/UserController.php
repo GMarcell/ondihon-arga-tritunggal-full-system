@@ -3,19 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ListRequest;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ListRequest $request)
     {
-        return UserResource::collection(User::query()->orderBy('id', 'desc')->paginate(10));
+        return UserResource::collection(User::query()->where('name', 'LIKE', '%' . $request['search'] . '%')->orderBy('id', 'desc')->paginate($request['per_page'], ['*'], 'page', $request['page']));
     }
 
     /**
@@ -45,7 +47,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $data = $request->validated();
-        if(isset($data['password'])){
+        if (isset($data['password'])) {
             $data['password'] = bcrypt($data['password']);
         };
         $user->update($data);
