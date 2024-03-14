@@ -1,33 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useStateContext } from "../../../hooks/stateContext";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axiosClient from "../../../axios-client";
-import { checkFormError } from "../../../utils/checkErrors";
-import ErrorNotification from "../../../components/ErrorNotification";
 import CustomInput from "../../../components/Input";
+import { useStateContext } from "../../../hooks/stateContext";
+import { useNavigate, useParams } from "react-router-dom";
+import Notification from "../../../components/Notification";
+import { isEmpty } from "../../../utils/CheckEmptyObject";
 
 function Form() {
-  const [showPassword, setShowPassword] = useState({
-    password: false,
-    confirmPassword: false,
-  });
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+  });
 
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register, setValue, getValues } = useForm();
 
-  const { setUser, setToken } = useStateContext();
+  const { setNotification } = useStateContext();
 
-  const onSubmit = (data) => {
+  const onSubmitCreate = (data) => {
     setIsLoading(true);
     setFormErrors(null);
     axiosClient
       .post("/users", data)
-      .then((response) => {
-        // setUser(response.data.user);
-        // setToken(response.data.token);
-        setIsLoading(false);
+      .then(() => {
+        setNotification("User Successfully Created");
+        navigate("/administrator/user-management");
       })
       .catch((error) => {
         setIsLoading(false);
@@ -38,18 +39,73 @@ function Form() {
       });
   };
 
+  const getUserInfo = (id) => {
+    setIsLoading(true);
+    axiosClient
+      .get(`/users/${id}`)
+      .then(({ data }) => {
+        setIsLoading(false);
+        setValue("name", data.data.name);
+        setValue("email", data.data.email);
+        setUser({
+          name: data.data.name,
+          email: data.data.email,
+        });
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const onSubmitUpdate = (data) => {
+    let trimmedData = Object.fromEntries(
+      Object.entries(data)
+        .filter(([_, v]) => v != "")
+        .filter(([key, v]) => v != user[key])
+    );
+    if (isEmpty(trimmedData)) {
+      setFormErrors({
+        name: ["Name is the same with previous data"],
+        email: ["Email is the same with previous data"],
+      });
+    } else {
+      setIsLoading(true);
+      setFormErrors(null);
+      axiosClient
+        .put(`/users/${id}`, trimmedData)
+        .then(() => {
+          setNotification("User Successfully Updated");
+          navigate("/administrator/user-management");
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          const response = error.response;
+          if (response && response.status == 422) {
+            console.log(response.data.errors);
+            setFormErrors(response.data.errors);
+          }
+        });
+    }
+  };
+
+  useEffect(() => {
+    if (id != undefined) {
+      getUserInfo(id);
+    }
+  }, []);
+
   return (
     <div className=" w-full max-w-full flex-col items-center md:pl-4 p-4 bg- rounded-lg shadow-md">
-      {formErrors && <ErrorNotification formError={formErrors} />}
+      {formErrors && <Notification type="error" formError={formErrors} />}
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(id ? onSubmitUpdate : onSubmitCreate)}>
         <CustomInput
           type="text"
           labelText="Username"
           disabled={isLoading}
           errors={formErrors}
           name="name"
-          hookForm={register("name")}
+          hookForm={register}
         />
 
         <CustomInput
@@ -58,7 +114,7 @@ function Form() {
           disabled={isLoading}
           errors={formErrors}
           name="email"
-          hookForm={register("email")}
+          hookForm={register}
         />
 
         <div className="my-3">
@@ -68,7 +124,7 @@ function Form() {
             disabled={isLoading}
             errors={formErrors}
             name="password"
-            hookForm={register("password")}
+            hookForm={register}
           />
         </div>
 
@@ -78,8 +134,8 @@ function Form() {
             labelText="Password Confirmation"
             disabled={isLoading}
             errors={formErrors}
-            name="password"
-            hookForm={register("password_confirmation")}
+            name="password_confirmation"
+            hookForm={register}
           />
         </div>
 
@@ -91,6 +147,8 @@ function Form() {
           >
             {isLoading ? (
               <span className="loading loading-spinner loading-md"></span>
+            ) : id ? (
+              "Update"
             ) : (
               "Create"
             )}

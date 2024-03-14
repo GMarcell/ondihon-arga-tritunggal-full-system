@@ -68,6 +68,10 @@ const router = createBrowserRouter([
         element: <Form/>,
       },
       {
+        path: '/administrator/user-management/:id',
+        element: <Form key={'userUpdate'}/>,
+      },
+      {
         path: '/administrator/customer-management',
         element: <CustomerManagementList/>,
       },

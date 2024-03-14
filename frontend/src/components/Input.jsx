@@ -4,8 +4,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 function CustomInput({ type, labelText, disabled, errors, name, hookForm }) {
   const [showPassword, setShowPassword] = useState({
-    password: false,
-    confirmPassword: false,
+    password: false
   });
 
   if (type == "password") {
@@ -16,14 +15,14 @@ function CustomInput({ type, labelText, disabled, errors, name, hookForm }) {
         </div>
         <label
           className={`input bg-slate-50 input-bordered flex items-center gap-2 text-black ${
-            checkFormError(errors, name) ? "input-error" : ""
+            checkFormError(errors, type) ? "input-error" : ""
           }`}
         >
           <input
             type={showPassword.password ? "text" : "password"}
             className={`grow `}
             placeholder="Password"
-            {...hookForm}
+            {...hookForm(name)}
             disabled={disabled}
           />
           <btn
@@ -54,7 +53,7 @@ function CustomInput({ type, labelText, disabled, errors, name, hookForm }) {
           checkFormError(errors, name) ? "input-error" : ""
         }`}
         disabled={disabled}
-        {...hookForm}
+        {...hookForm(name)}
       />
     </label>
   );

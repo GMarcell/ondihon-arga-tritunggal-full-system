@@ -3,6 +3,8 @@ import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../../hooks/stateContext";
+import Notification from "../../components/Notification";
+import CustomInput from "../../components/Input";
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -45,7 +47,7 @@ export default function SignIn() {
           Enter your username and password to sign in!
         </p>
 
-        {formErrors && <ErrorNotification formError={formErrors} />}
+        {formErrors && <Notification type='error' formError={formErrors} />}
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <CustomInput

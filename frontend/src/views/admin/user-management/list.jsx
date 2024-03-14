@@ -2,10 +2,24 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../../../axios-client";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useStateContext } from "../../../hooks/stateContext";
+import Notification from "../../../components/Notification";
 
 function UserManagementList() {
   const [isLoading, setisLoading] = useState(false);
   const [users, setusers] = useState([]);
+
+  const { notification, setNotification } = useStateContext();
+
+  const onClickDelete = (userId) => {
+    if (!window.confirm("Are you sure you want to delete this user?")) {
+      return;
+    }
+    axiosClient.delete(`/users/${userId}`).then(() => {
+      setNotification("User was successfully deleted");
+      getUsers();
+    });
+  };
 
   const getUsers = () => {
     setisLoading(true);
@@ -14,7 +28,6 @@ function UserManagementList() {
       .then(({ data }) => {
         setisLoading(false);
         setusers(data.data);
-        console.log(data);
       })
       .catch(() => {
         setisLoading(false);
@@ -27,6 +40,12 @@ function UserManagementList() {
 
   return (
     <div className="w-full h-fit">
+      {notification != "" && (
+        <div className="my-3">
+          <Notification type="success" alertText={notification} />
+        </div>
+      )}
+
       {isLoading ? (
         <div className="flex justify-center items-center">
           <span className="loading loading-infinity loading-lg"></span>
@@ -35,7 +54,7 @@ function UserManagementList() {
         <>
           <div className="flex justify-end mb-3">
             <button className="btn bg-[#0A055B] btn-md">
-              <Link to='/administrator/user-management/create'>Add New</Link>
+              <Link to="/administrator/user-management/create">Add New</Link>
             </button>
           </div>
           <div className="overflow-x-auto bg-slate-600 rounded-sm">
@@ -57,9 +76,11 @@ function UserManagementList() {
                     <td>{el.email}</td>
                     <td>
                       <button className="btn btn-square btn-outline btn-sm btn-warning mr-4">
+                        <Link to={`/administrator/user-management/${el.id}`}>
                         <MdEdit size={20} />
+                        </Link>
                       </button>
-                      <button className="btn btn-square btn-outline btn-sm btn-error">
+                      <button className="btn btn-square btn-outline btn-sm btn-error" onClick={() => onClickDelete(el.id)}>
                         <MdDelete size={20} />
                       </button>
                     </td>
