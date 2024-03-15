@@ -100,7 +100,7 @@ function UserManagementList() {
                     <td>{el.email}</td>
                     <td>
                       <button className="btn btn-square btn-outline btn-sm btn-warning mr-4">
-                        <Link to={`/administrator/user-management/${el.id}`}>
+                        <Link to={`/administrator/user-management/update-user/${el.id}`}>
                           <MdEdit size={20} />
                         </Link>
                       </button>
@@ -129,22 +129,7 @@ function UserManagementList() {
                   {idx + 1}
                 </button>
               ))}
-
-              {/* <button className="join-item btn btn-active">2</button>
-              <button className="join-item btn">4</button> */}
             </div>
-            {/* <div className="join grid grid-cols-2">
-              {page != 1 && (
-                <button className="join-item btn btn-outline text-black btn-sm" onClick={() => setPage(page - 1)}>
-                  Previous page
-                </button>
-              )}
-              {page != lastPage && (
-                <button className="join-item btn btn-outline text-black btn-sm" onClick={() => setPage(page + 1)}>
-                  Next
-                </button>
-              )}
-            </div> */}
           </div>
         </>
       )}

@@ -4,12 +4,17 @@ import { Navigate, useLocation, Outlet } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import AdminNavbar from "../components/AdminNavbar";
 import axiosClient from "../axios-client";
+import { isNumeric } from "../utils/CheckIsNumeric";
 
 function AdminLayout() {
   const { user, token, setUser, setToken } = useStateContext();
   const [open, setOpen] = useState(true);
 
-  const currentPath = useLocation().pathname.split("/").pop();
+  const currentPath = isNumeric(useLocation().pathname.split("/").pop())
+    ? useLocation().pathname.split("/")[
+        useLocation().pathname.split("/").length - 2
+      ]
+    : useLocation().pathname.split("/").pop();
 
   const onLogout = () => {
     axiosClient.post("/logout").then(() => {

@@ -69,7 +69,7 @@ const router = createBrowserRouter([
         element: <Form/>,
       },
       {
-        path: '/administrator/user-management/:id',
+        path: '/administrator/user-management/update-user/:id',
         element: <Form key={'userUpdate'}/>,
       },
       {
