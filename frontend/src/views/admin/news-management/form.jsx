@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Notification from "../../../components/Notification";
 import { isEmpty } from "../../../utils/CheckEmptyObject";
 
-function UserForm() {
+function NewsForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState(null);
@@ -22,21 +22,21 @@ function UserForm() {
   const { setNotification } = useStateContext();
 
   const onSubmitCreate = (data) => {
-    setIsLoading(true);
-    setFormErrors(null);
-    axiosClient
-      .post("/users", data)
-      .then(() => {
-        setNotification("User Successfully Created");
-        navigate("/administrator/user-management");
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        const response = error.response;
-        if (response && response.status == 422) {
-          setFormErrors(response.data.errors);
-        }
-      });
+    // setIsLoading(true);
+    // setFormErrors(null);
+    // axiosClient
+    //   .post("/users", data)
+    //   .then(() => {
+    //     setNotification("User Successfully Created");
+    //     navigate("/administrator/user-management");
+    //   })
+    //   .catch((error) => {
+    //     setIsLoading(false);
+    //     const response = error.response;
+    //     if (response && response.status == 422) {
+    //       setFormErrors(response.data.errors);
+    //     }
+    //   });
   };
 
   const getUserInfo = (id) => {
@@ -81,7 +81,6 @@ function UserForm() {
           setIsLoading(false);
           const response = error.response;
           if (response && response.status == 422) {
-            console.log(response.data.errors);
             setFormErrors(response.data.errors);
           }
         });
@@ -101,43 +100,32 @@ function UserForm() {
       <form onSubmit={handleSubmit(id ? onSubmitUpdate : onSubmitCreate)}>
         <CustomInput
           type="text"
-          labelText="Username"
+          labelText="Title"
           disabled={isLoading}
           errors={formErrors}
-          name="name"
+          name="title"
           hookForm={register}
         />
 
         <CustomInput
-          type="email"
-          labelText="Email"
+          type="text"
+          labelText="Description"
           disabled={isLoading}
           errors={formErrors}
-          name="email"
+          name="description"
           hookForm={register}
         />
 
-        <div className="my-3">
+        <dic className="my-3">
           <CustomInput
-            type="password"
-            labelText="Password"
+            type="file"
+            labelText="Image"
             disabled={isLoading}
             errors={formErrors}
-            name="password"
             hookForm={register}
+            name='image-link'
           />
-        </div>
-
-        <div className="my-3">
-          <CustomInput
-            type="password"
-            labelText="Password Confirmation"
-            disabled={isLoading}
-            errors={formErrors}
-            name="password_confirmation"
-            hookForm={register}
-          />
-        </div>
+        </dic>
 
         <div className="flex lg:justify-between sm:flex-col lg:flex-row">
           <button
@@ -170,4 +158,4 @@ function UserForm() {
   );
 }
 
-export default UserForm
+export default NewsForm;

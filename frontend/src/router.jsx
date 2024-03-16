@@ -13,9 +13,9 @@ import CustomerManagementList from './views/admin/customer-management/list'
 import NewsManagementList from './views/admin/news-management/list'
 import SignIn from './views/guest/SignIn'
 import SignUp from './views/guest/SignUp'
-import UserCreate from './views/admin/user-management/form'
-import Form from './views/admin/user-management/form'
 import ProductManagementList from './views/admin/product-management/list'
+import UserForm from './views/admin/user-management/form'
+import NewsForm from './views/admin/news-management/form'
 
 const router = createBrowserRouter([
   {
@@ -66,11 +66,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/administrator/user-management/create',
-        element: <Form/>,
+        element: <UserForm/>,
       },
       {
         path: '/administrator/user-management/update-user/:id',
-        element: <Form key={'userUpdate'}/>,
+        element: <UserForm key={'userUpdate'}/>,
+      },
+      {
+        path: '/administrator/news-management',
+        element: <NewsManagementList/>,
+      },
+      {
+        path: '/administrator/news-management/create',
+        element: <NewsForm/>,
       },
       {
         path: '/administrator/product-management',
@@ -79,10 +87,6 @@ const router = createBrowserRouter([
       {
         path: '/administrator/customer-management',
         element: <CustomerManagementList/>,
-      },
-      {
-        path: '/administrator/news-management',
-        element: <NewsManagementList/>,
       },
       {
         path: '/administrator/article-management',

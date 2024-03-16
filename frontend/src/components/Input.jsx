@@ -49,6 +49,27 @@ function CustomInput({
     );
   }
 
+  if (type == "file") {
+    return (
+      <label className="form-control w-full">
+        {useLabel && (
+          <div className="label">
+            <span className="label-text text-black font-bold">{labelText}</span>
+          </div>
+        )}
+        <input
+          type="file"
+          placeholder={labelText}
+          disabled={disabled}
+          className={`file-input file-input-bordered text-black input-bordered w-full disabled:bg-slate-50 disabled:border-slate-50 bg-slate-50 ${
+            checkFormError(errors, name) ? "input-error" : ""
+          }`}
+          {...hookForm(name)}
+        />
+      </label>
+    );
+  }
+
   return (
     <label className="form-control w-full">
       {useLabel && (

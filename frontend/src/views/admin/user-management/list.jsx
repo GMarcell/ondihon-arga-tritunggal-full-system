@@ -29,7 +29,6 @@ function UserManagementList() {
 
   const getUsers = () => {
     setisLoading(true);
-    console.log(getValues('search'))
     axiosClient
       .get("/users", {
         params: {
@@ -41,7 +40,6 @@ function UserManagementList() {
       .then(({ data }) => {
         setisLoading(false);
         setusers(data.data);
-        console.log(data.meta.last_page);
         setLastPage(data.meta.last_page);
       })
       .catch(() => {

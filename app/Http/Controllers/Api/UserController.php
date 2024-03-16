@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index(ListRequest $request)
     {
-        return UserResource::collection(User::query()->where('name', 'LIKE', '%' . $request['search'] . '%')->orderBy('id', 'desc')->paginate($request['per_page'], ['*'], 'page', $request['page']));
+        return UserResource::collection(User::query()->where('name', 'LIKE', '%' . $request['search'] . '%')->orWhere('email', 'LIKE', '%' . $request['search'] . '%')->orderBy('id', 'desc')->paginate($request['per_page'], ['*'], 'page', $request['page']));
     }
 
     /**
