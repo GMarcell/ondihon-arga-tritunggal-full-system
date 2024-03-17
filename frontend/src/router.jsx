@@ -16,6 +16,7 @@ import SignUp from './views/guest/SignUp'
 import ProductManagementList from './views/admin/product-management/list'
 import UserForm from './views/admin/user-management/form'
 import NewsForm from './views/admin/news-management/form'
+import NewsPreview from './views/admin/news-management/preview'
 
 const router = createBrowserRouter([
   {

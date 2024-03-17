@@ -49,23 +49,22 @@ function CustomInput({
     );
   }
 
-  if (type == "file") {
+  if (type == "longText") {
     return (
-      <label className="form-control w-full">
+      <label className="form-control">
         {useLabel && (
           <div className="label">
             <span className="label-text text-black font-bold">{labelText}</span>
           </div>
         )}
-        <input
-          type="file"
-          placeholder={labelText}
-          disabled={disabled}
-          className={`file-input file-input-bordered text-black input-bordered w-full disabled:bg-slate-50 disabled:border-slate-50 bg-slate-50 ${
+        <textarea
+          className={`textarea textarea-bordered h-24 w-full text-black disabled:bg-slate-50 disabled:border-slate-50 bg-slate-50 ${
             checkFormError(errors, name) ? "input-error" : ""
           }`}
+          placeholder={labelText}
+          disabled={disabled}
           {...hookForm(name)}
-        />
+        ></textarea>
       </label>
     );
   }

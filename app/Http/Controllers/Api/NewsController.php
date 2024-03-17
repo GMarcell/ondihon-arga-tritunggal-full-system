@@ -24,7 +24,26 @@ class NewsController extends Controller
      */
     public function store(StoreNewsRequest $request)
     {
-        //
+        $uploadFolder = 'news';
+        $image = $request->file('image_link');
+
+        $image_uploaded_path = $image->store($uploadFolder, 'public');
+
+        $news = new News();
+        $news->title = $request->title;
+        $news->description = $request->description;
+        $news->image_link = $image_uploaded_path;
+        $news->video_link = $request->video_link;
+
+        $status = $news->save();
+
+        if($status){
+            return response('', 204);
+        } else {
+            return response('Create News Failed', 500);
+        }
+
+
     }
 
     /**
