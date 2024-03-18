@@ -8,6 +8,9 @@ use App\Models\News;
 use App\Http\Requests\StoreNewsRequest;
 use App\Http\Requests\UpdateNewsRequest;
 use App\Http\Resources\NewsResource;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
@@ -37,13 +40,11 @@ class NewsController extends Controller
 
         $status = $news->save();
 
-        if($status){
+        if ($status) {
             return response('', 204);
         } else {
             return response('Create News Failed', 500);
         }
-
-
     }
 
     /**
@@ -62,13 +63,32 @@ class NewsController extends Controller
         //
     }
 
+    public function deleteNews(Request $request, News $news)
+    {
+        $data = $news->find($request->id);
+        $image_path = 'storage/'.$data->image_link;
+        if (File::exists(public_path($image_path))) {
+            File::delete(public_path($image_path));
+        } else {
+            return response('Image File Not Found', 500);
+        }
+        $data->delete();
+        return response('', 204);
+    }
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(News $news)
     {
-        $news->delete();
-
-        return response('', 204);
+        // $news->delete();
+        $image_path = $news['image-link'];
+        dd($image_path);
+        // if(Storage::exists($image_path)){
+        //     Storage::delete($image_path);
+        // } else {
+        // dd($image_path);
+        // }
+        return $news;
     }
 }

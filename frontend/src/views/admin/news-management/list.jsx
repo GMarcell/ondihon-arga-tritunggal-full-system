@@ -20,10 +20,7 @@ function NewsManagementList() {
   const { notification, setNotification } = useStateContext();
 
   const onClickDelete = (newsId) => {
-    if (!window.confirm("Are you sure you want to delete this news?")) {
-      return;
-    }
-    axiosClient.delete(`/news/${newsId}`).then(() => {
+    axiosClient.post(`/news/delete/${newsId}`).then(() => {
       setNotification("News was successfully deleted");
       getNews();
     });
