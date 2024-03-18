@@ -3,7 +3,6 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 function CustomCard({ news, handleDelete }) {
-  console.log(news);
   return (
     <div className="card w-full bg-base-100 shadow-xl">
       <figure>

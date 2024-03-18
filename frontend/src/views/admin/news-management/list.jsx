@@ -14,15 +14,22 @@ function NewsManagementList() {
   const [news, setNews] = useState([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(0);
+  const [notificationType, setNotificationType] = useState('success')
 
   const { register, getValues } = useForm();
 
   const { notification, setNotification } = useStateContext();
 
   const onClickDelete = (newsId) => {
+    setisLoading(true)
     axiosClient.post(`/news/delete/${newsId}`).then(() => {
       setNotification("News was successfully deleted");
       getNews();
+      setisLoading(false)
+    }).catch((err) => {
+      setisLoading(false)
+      setNotificationType('delete_failed')
+      setNotification(err.response.data)
     });
   };
 
@@ -54,7 +61,7 @@ function NewsManagementList() {
     <div className="w-full h-fit">
       {notification != "" && (
         <div className="my-3">
-          <Notification type="success" alertText={notification} />
+          <Notification type={notificationType} alertText={notification} />
         </div>
       )}
 
