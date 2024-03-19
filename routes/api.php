@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ArticlesController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\UserController;
@@ -26,6 +27,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::apiResource('users', UserController::class);
     Route::apiResource('news', NewsController::class);
+    Route::apiResource('article', ArticlesController::class);
     Route::post('/news/delete/{id}', [NewsController::class, 'deleteNews']);
     Route::post('/news/update/{id}', [NewsController::class, 'updateNews']);
+    Route::post('/article/delete/{id}', [ArticlesController::class, 'deleteArticle']);
+    Route::post('/article/update/{id}', [ArticlesController::class, 'updateArticle']);
 });

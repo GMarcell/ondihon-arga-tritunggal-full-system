@@ -10,7 +10,6 @@ import CustomCard from "../../../components/CustomCard";
 
 function NewsManagementList() {
   const [isLoading, setisLoading] = useState(false);
-  const [users, setusers] = useState([]);
   const [news, setNews] = useState([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(0);
@@ -93,7 +92,7 @@ function NewsManagementList() {
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {news?.map((el, idx) => (
-              <CustomCard key={idx} handleDelete={onClickDelete} news={el} />
+              <CustomCard key={idx} handleDelete={onClickDelete} item={el} menuName='news' />
             ))}
           </div>
 

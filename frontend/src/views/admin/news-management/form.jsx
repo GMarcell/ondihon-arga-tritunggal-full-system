@@ -5,8 +5,6 @@ import CustomInput from "../../../components/Input";
 import { useStateContext } from "../../../hooks/stateContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Notification from "../../../components/Notification";
-import { isEmpty } from "../../../utils/CheckEmptyObject";
-import useFilePreview from "../../../hooks/useFilePreview";
 import { checkFormError } from "../../../utils/checkErrors";
 import NewsPreview from "./preview";
 
@@ -16,13 +14,6 @@ function NewsForm() {
   const [formErrors, setFormErrors] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [img, setImg] = useState(null);
-  const [isOldData, setIsOldData] = useState(false);
-  const [news, setnews] = useState({
-    title: "",
-    desc: "",
-    video_link: "",
-    image_link: "",
-  });
 
   const { handleSubmit, register, setValue, control, getValues, watch } =
     useForm();
@@ -66,13 +57,6 @@ function NewsForm() {
         setValue("description", data.data.description);
         setValue("video-link", data.data.video_link);
         setValue("image-link", data.data.image_link);
-        setnews({
-          title: data.data.title,
-          description: data.data.description,
-          "video-link": data.data.video_link,
-          "image-link": data.data.image_link,
-        });
-        setIsOldData(true);
       })
       .catch(() => {
         setIsLoading(false);

@@ -4,67 +4,69 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ListRequest;
-use App\Models\News;
-use App\Http\Requests\StoreNewsRequest;
-use App\Http\Requests\UpdateNewsRequest;
-use App\Http\Resources\NewsResource;
+use App\Models\Article;
+use App\Http\Requests\StoreArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
+use App\Http\Resources\ArticleResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
-class NewsController extends Controller
+class ArticlesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(ListRequest $request)
     {
-        return NewsResource::collection(News::query()->where('title', 'LIKE', '%' . $request['search'] . '%')->orderBy('id', 'desc')->paginate($request['per_page'], ['*'], 'page', $request['page']));
+        return ArticleResource::collection(Article::query()->where('title', 'LIKE', '%' . $request['search'] . '%')->orderBy('id', 'desc')->paginate($request['per_page'], ['*'], 'page', $request['page']));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreNewsRequest $request)
+    public function store(StoreArticleRequest $request)
     {
-        $uploadFolder = 'news';
+        $uploadFolder = 'article';
         $image = $request->file('image_link');
 
         $image_uploaded_path = $image->store($uploadFolder, 'public');
 
-        $news = new News();
-        $news->title = $request->title;
-        $news->description = $request->description;
-        $news->image_link = $image_uploaded_path;
-        $news->video_link = $request->video_link;
+        $article = new Article();
+        $article->title = $request->title;
+        $article->description = $request->description;
+        $article->image_link = $image_uploaded_path;
+        $article->video_link = $request->video_link;
 
-        $status = $news->save();
+        $status = $article->save();
 
         if ($status) {
             return response('', 204);
         } else {
-            return response('Create News Failed', 500);
+            return response('Create Article Failed', 500);
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(News $news)
+    public function show(Article $article)
     {
-        return new NewsResource($news);
+        return new ArticleResource($article);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateNewsRequest $request, News $news)
+    public function update(UpdateArticleRequest $request, Article $article)
     {
+        //
     }
-    public function updateNews(UpdateNewsRequest $request, News $news)
+
+    public function updateArticle(UpdateArticleRequest $request, Article $article)
     {
         $data = $request->validated();
-        $newNews = $news->find($request->id);
-        $image_path = 'storage/' . $news->image_link;
+        $newArticle = $article->find($request->id);
+        $image_path = 'storage/' . $article->image_link;
         if (File::exists(public_path($image_path))) {
             File::delete(public_path($image_path));
         }
@@ -72,14 +74,14 @@ class NewsController extends Controller
         if (isset($data['image_link'])) {
             $image = $request->file('image_link');
             $image_uploaded_path = $image->store($uploadFolder, 'public');
-            $status = $newNews->update([
+            $status = $newArticle->update([
                 'title' => $data['title'],
                 'description' => $data['description'],
                 'image_link' => $image_uploaded_path,
                 'video_link' => $data['video_link'],
             ]);
         } else {
-            $status = $newNews->update([
+            $status = $newArticle->update([
                 'title' => $data['title'],
                 'description' => $data['description'],
                 'video_link' => $data['video_link'],
@@ -93,9 +95,17 @@ class NewsController extends Controller
         }
     }
 
-    public function deleteNews(Request $request, News $news)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Article $article)
     {
-        $data = $news->find($request->id);
+        //
+    }
+
+    public function deleteArticle(Request $request, Article $article)
+    {
+        $data = $article->find($request->id);
         $image_path = 'storage/' . $data->image_link;
         if (File::exists(public_path($image_path))) {
             File::delete(public_path($image_path));
@@ -105,12 +115,5 @@ class NewsController extends Controller
         // }
         $data->delete();
         return response('', 204);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(News $news)
-    {
     }
 }

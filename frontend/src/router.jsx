@@ -17,6 +17,7 @@ import ProductManagementList from './views/admin/product-management/list'
 import UserForm from './views/admin/user-management/form'
 import NewsForm from './views/admin/news-management/form'
 import NewsPreview from './views/admin/news-management/preview'
+import ArticleForm from './views/admin/article-management/form'
 
 const router = createBrowserRouter([
   {
@@ -86,16 +87,24 @@ const router = createBrowserRouter([
         element: <NewsForm key={'newsUpdate'}/>,
       },
       {
+        path: '/administrator/article-management',
+        element: <ArticleManagementList/>,
+      },
+      {
+        path: '/administrator/article-management/create',
+        element: <ArticleForm/>,
+      },
+      {
+        path: '/administrator/article-management/update-article/:id',
+        element: <ArticleForm key={'articleUpdate'}/>,
+      },
+      {
         path: '/administrator/product-management',
         element: <ProductManagementList/>,
       },
       {
         path: '/administrator/customer-management',
         element: <CustomerManagementList/>,
-      },
-      {
-        path: '/administrator/article-management',
-        element: <ArticleManagementList/>,
       },
     ]
   }
