@@ -53,7 +53,7 @@ export default function SignUp() {
             disabled={isLoading}
             errors={formErrors}
             name="name"
-            hookForm={register("name")}
+            hookForm={register}
           />
 
           <CustomInput
@@ -62,7 +62,7 @@ export default function SignUp() {
             disabled={isLoading}
             errors={formErrors}
             name="email"
-            hookForm={register("email")}
+            hookForm={register}
           />
 
           <div className="my-3">
@@ -72,7 +72,7 @@ export default function SignUp() {
               disabled={isLoading}
               errors={formErrors}
               name="password"
-              hookForm={register("password")}
+              hookForm={register}
             />
           </div>
 
@@ -82,8 +82,8 @@ export default function SignUp() {
               labelText="Password Confirmation"
               disabled={isLoading}
               errors={formErrors}
-              name="password"
-              hookForm={register("password_confirmation")}
+              name="password_confirmation"
+              hookForm={register}
             />
           </div>
 

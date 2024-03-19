@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../../hooks/stateContext";
 import Notification from "../../components/Notification";
@@ -56,7 +55,7 @@ export default function SignIn() {
             disabled={isLoading}
             errors={formErrors}
             name="email"
-            hookForm={register("email")}
+            hookForm={register}
           />
 
           <div className="my-3">
@@ -66,7 +65,7 @@ export default function SignIn() {
               disabled={isLoading}
               errors={formErrors}
               name="password"
-              hookForm={register("password")}
+              hookForm={register}
             />
           </div>
 
