@@ -25,7 +25,6 @@ function ArticleManagementList() {
       .then(() => {
         setNotification("News was successfully deleted");
         getArticle();
-        setisLoading(false);
       })
       .catch((err) => {
         setisLoading(false);
@@ -60,18 +59,17 @@ function ArticleManagementList() {
 
   return (
     <div className="w-full h-fit">
-      {notification != "" && (
-        <div className="my-3">
-          <Notification type={notificationType} alertText={notification} />
-        </div>
-      )}
-
       {isLoading ? (
         <div className="flex justify-center items-center">
           <span className="loading loading-infinity loading-lg"></span>
         </div>
       ) : (
         <>
+          {notification != "" && (
+            <div className="my-3">
+              <Notification type={notificationType} alertText={notification} />
+            </div>
+          )}
           <div className="flex justify-between mb-3 gap-3">
             <div className="flex gap-3">
               <CustomInput
@@ -94,7 +92,12 @@ function ArticleManagementList() {
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {articles?.map((el, idx) => (
-              <CustomCard key={idx} handleDelete={onClickDelete} item={el} menuName='article' />
+              <CustomCard
+                key={idx}
+                handleDelete={onClickDelete}
+                item={el}
+                menuName="article"
+              />
             ))}
           </div>
 

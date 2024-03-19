@@ -13,23 +13,25 @@ function NewsManagementList() {
   const [news, setNews] = useState([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(0);
-  const [notificationType, setNotificationType] = useState('success')
+  const [notificationType, setNotificationType] = useState("success");
 
   const { register, getValues } = useForm();
 
   const { notification, setNotification } = useStateContext();
 
   const onClickDelete = (newsId) => {
-    setisLoading(true)
-    axiosClient.post(`/news/delete/${newsId}`).then(() => {
-      setNotification("News was successfully deleted");
-      getNews();
-      setisLoading(false)
-    }).catch((err) => {
-      setisLoading(false)
-      setNotificationType('delete_failed')
-      setNotification(err.response.data)
-    });
+    setisLoading(true);
+    axiosClient
+      .post(`/news/delete/${newsId}`)
+      .then(() => {
+        setNotification("News was successfully deleted");
+        getNews();
+      })
+      .catch((err) => {
+        setisLoading(false);
+        setNotificationType("delete_failed");
+        setNotification(err.response.data);
+      });
   };
 
   const getNews = () => {
@@ -58,18 +60,17 @@ function NewsManagementList() {
 
   return (
     <div className="w-full h-fit">
-      {notification != "" && (
-        <div className="my-3">
-          <Notification type={notificationType} alertText={notification} />
-        </div>
-      )}
-
       {isLoading ? (
         <div className="flex justify-center items-center">
           <span className="loading loading-infinity loading-lg"></span>
         </div>
       ) : (
         <>
+          {notification != "" && (
+            <div className="my-3">
+              <Notification type={notificationType} alertText={notification} />
+            </div>
+          )}
           <div className="flex justify-between mb-3 gap-3">
             <div className="flex gap-3">
               <CustomInput
@@ -92,7 +93,12 @@ function NewsManagementList() {
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {news?.map((el, idx) => (
-              <CustomCard key={idx} handleDelete={onClickDelete} item={el} menuName='news' />
+              <CustomCard
+                key={idx}
+                handleDelete={onClickDelete}
+                item={el}
+                menuName="news"
+              />
             ))}
           </div>
 

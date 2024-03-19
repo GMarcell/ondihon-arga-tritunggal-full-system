@@ -18,6 +18,7 @@ import UserForm from './views/admin/user-management/form'
 import NewsForm from './views/admin/news-management/form'
 import NewsPreview from './views/admin/news-management/preview'
 import ArticleForm from './views/admin/article-management/form'
+import CustomerForm from './views/admin/customer-management/form'
 
 const router = createBrowserRouter([
   {
@@ -105,6 +106,14 @@ const router = createBrowserRouter([
       {
         path: '/administrator/customer-management',
         element: <CustomerManagementList/>,
+      },
+      {
+        path: '/administrator/customer-management/create',
+        element: <CustomerForm/>,
+      },
+      {
+        path: '/administrator/customer-management/update-customer/:id',
+        element: <CustomerForm key={'customerUpdate'}/>,
       },
     ]
   }

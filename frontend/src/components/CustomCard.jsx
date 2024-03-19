@@ -14,7 +14,7 @@ function CustomCard({ item, handleDelete, menuName }) {
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{item.title}</h2>
+        <h2 className="card-title">{item?.title ?? item?.company_name}</h2>
         <p>
           {item.description.length > 100
             ? item.description.substring(0, 100) + "..."
