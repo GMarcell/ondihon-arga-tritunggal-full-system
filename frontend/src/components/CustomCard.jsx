@@ -22,7 +22,7 @@ function CustomCard({ news, handleDelete }) {
         </p>
         <div className="card-actions justify-end">
           <button className="btn btn-square btn-outline btn-md btn-warning">
-            <Link to={`/administrator/user-management/update-user/${news?.id}`}>
+            <Link to={`/administrator/news-management/update-news/${news?.id}`}>
               <MdEdit size={20} />
             </Link>
           </button>

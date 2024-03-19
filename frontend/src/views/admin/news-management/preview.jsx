@@ -7,7 +7,7 @@ function NewsPreview(props) {
     <div className="w-full">
       <h3 className="font-bold text-brand-500 text-center text-md capitalize text-[33px]">{props?.title ?? "-"}</h3>
       <div className="p-3">
-      <img src={props?.image} />
+      <img src={props?.isOldData ? import.meta.env.VITE_API_BASE_URL + "/storage/" + props?.image : props?.image} />
       </div>
       <h3>{props?.desc ?? "-"}</h3>
       {

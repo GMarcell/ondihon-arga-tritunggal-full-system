@@ -11,6 +11,7 @@ use App\Http\Resources\NewsResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Psy\Readline\Hoa\Console;
 
 class NewsController extends Controller
 {
@@ -52,7 +53,7 @@ class NewsController extends Controller
      */
     public function show(News $news)
     {
-        //
+        return new NewsResource($news);
     }
 
     /**
@@ -60,13 +61,44 @@ class NewsController extends Controller
      */
     public function update(UpdateNewsRequest $request, News $news)
     {
-        //
+    }
+    public function updateNews(UpdateNewsRequest $request, News $news)
+    {
+        $data = $request->validated();
+        $newNews = $news->find($request->id);
+        $image_path = 'storage/' . $news->image_link;
+        if (File::exists(public_path($image_path))) {
+            File::delete(public_path($image_path));
+        }
+        $uploadFolder = 'news';
+        if (isset($data['image_link'])) {
+            $image = $request->file('image_link');
+            $image_uploaded_path = $image->store($uploadFolder, 'public');
+            $status = $newNews->update([
+                'title' => $data['title'],
+                'description' => $data['description'],
+                'image_link' => $image_uploaded_path,
+                'video_link' => $data['video_link'],
+            ]);
+        } else {
+            $status = $newNews->update([
+                'title' => $data['title'],
+                'description' => $data['description'],
+                'video_link' => $data['video_link'],
+            ]);
+        }
+
+        if ($status) {
+            return response('', 204);
+        } else {
+            return response($news);
+        }
     }
 
     public function deleteNews(Request $request, News $news)
     {
         $data = $news->find($request->id);
-        $image_path = 'storage/'.$data->image_link;
+        $image_path = 'storage/' . $data->image_link;
         if (File::exists(public_path($image_path))) {
             File::delete(public_path($image_path));
         } else {
@@ -81,14 +113,5 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        // $news->delete();
-        $image_path = $news['image-link'];
-        dd($image_path);
-        // if(Storage::exists($image_path)){
-        //     Storage::delete($image_path);
-        // } else {
-        // dd($image_path);
-        // }
-        return $news;
     }
 }

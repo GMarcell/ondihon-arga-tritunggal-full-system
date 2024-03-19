@@ -27,4 +27,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('news', NewsController::class);
     Route::post('/news/delete/{id}', [NewsController::class, 'deleteNews']);
+    Route::post('/news/update/{id}', [NewsController::class, 'updateNews']);
 });

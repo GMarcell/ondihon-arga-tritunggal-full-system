@@ -82,6 +82,10 @@ const router = createBrowserRouter([
         element: <NewsForm/>,
       },
       {
+        path: '/administrator/news-management/update-news/:id',
+        element: <NewsForm key={'newsUpdate'}/>,
+      },
+      {
         path: '/administrator/product-management',
         element: <ProductManagementList/>,
       },

@@ -59,7 +59,7 @@ function CustomInput({
         )}
         <textarea
           className={`textarea textarea-bordered h-24 w-full text-black disabled:bg-slate-50 disabled:border-slate-50 bg-slate-50 ${
-            checkFormError(errors, name) ? "input-error" : ""
+            checkFormError(errors, name) ? "textarea-error" : ""
           }`}
           placeholder={labelText}
           disabled={disabled}

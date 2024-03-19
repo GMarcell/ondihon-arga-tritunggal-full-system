@@ -16,9 +16,12 @@ function NewsForm() {
   const [formErrors, setFormErrors] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [img, setImg] = useState(null);
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
+  const [isOldData, setIsOldData] = useState(false);
+  const [news, setnews] = useState({
+    title: "",
+    desc: "",
+    video_link: "",
+    image_link: "",
   });
 
   const { handleSubmit, register, setValue, control, getValues, watch } =
@@ -53,18 +56,23 @@ function NewsForm() {
       });
   };
 
-  const getUserInfo = (id) => {
+  const getNewsInfo = (id) => {
     setIsLoading(true);
     axiosClient
-      .get(`/users/${id}`)
+      .get(`/news/${id}`)
       .then(({ data }) => {
         setIsLoading(false);
-        setValue("name", data.data.name);
-        setValue("email", data.data.email);
-        setUser({
-          name: data.data.name,
-          email: data.data.email,
+        setValue("title", data.data.title);
+        setValue("description", data.data.description);
+        setValue("video-link", data.data.video_link);
+        setValue("image-link", data.data.image_link);
+        setnews({
+          title: data.data.title,
+          description: data.data.description,
+          "video-link": data.data.video_link,
+          "image-link": data.data.image_link,
         });
+        setIsOldData(true);
       })
       .catch(() => {
         setIsLoading(false);
@@ -72,38 +80,39 @@ function NewsForm() {
   };
 
   const onSubmitUpdate = (data) => {
-    let trimmedData = Object.fromEntries(
-      Object.entries(data)
-        .filter(([_, v]) => v != "")
-        .filter(([key, v]) => v != user[key])
-    );
-    if (isEmpty(trimmedData)) {
-      setFormErrors({
-        name: ["Name is the same with previous data"],
-        email: ["Email is the same with previous data"],
-      });
-    } else {
-      setIsLoading(true);
-      setFormErrors(null);
-      axiosClient
-        .put(`/users/${id}`, trimmedData)
-        .then(() => {
-          setNotification("User Successfully Updated");
-          navigate("/administrator/user-management");
-        })
-        .catch((error) => {
-          setIsLoading(false);
-          const response = error.response;
-          if (response && response.status == 422) {
-            setFormErrors(response.data.errors);
-          }
-        });
+    const formData = new FormData();
+    for (const key of Object.entries(data)) {
+      if (key[0].includes("-link")) {
+        formData.append(key[0].replace("-", "_"), data[key[0]]);
+      } else {
+        formData.append(key[0], data[key[0]]);
+      }
     }
+    setIsLoading(true);
+    setFormErrors(null);
+    axiosClient
+      .post(`/news/update/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(() => {
+        setIsLoading(false);
+        setNotification("News Successfully Created");
+        navigate("/administrator/news-management");
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        const response = error.response;
+        if (response && response.status == 422) {
+          setFormErrors(response.data.errors);
+        }
+      });
   };
 
   useEffect(() => {
     if (id != undefined) {
-      getUserInfo(id);
+      getNewsInfo(id);
     }
   }, []);
 
@@ -179,9 +188,14 @@ function NewsForm() {
             video={watch("video-link")}
             image={
               getValues("image-link") != undefined
-                ? URL.createObjectURL(img)
+                ? id
+                  ? img == null
+                    ? getValues("image-link")
+                    : URL.createObjectURL(img)
+                  : URL.createObjectURL(img)
                 : null
             }
+            isOldData={id ? (img == null ? true : false) : false}
           />
         </div>
 
@@ -201,7 +215,7 @@ function NewsForm() {
           </button>
           <a
             className="mt-2 w-full lg:w-1/2 lg:mx-3 rounded-xl py-[12px] text-base font-medium btn btn-outline btn-error transition duration-200"
-            href="/administrator/user-management"
+            href="/administrator/news-management"
             disabled={isLoading}
           >
             {isLoading ? (
