@@ -19,7 +19,7 @@ class CustomerFactory extends Factory
         return [
             'company_name' => fake()->name(),
             'description' => fake()->text(),
-            'image_link' => fake()->url(),
+            'image_link' => 'default.png',
         ];
     }
 }

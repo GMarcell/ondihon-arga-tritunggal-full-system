@@ -19,8 +19,8 @@ class NewsFactory extends Factory
         return [
             'title' => fake()->name(),
             'description' => fake()->text(),
-            'image_link' => fake()->url(),
-            'video_link' => fake()->url(),
+            'image_link' => 'default.png',
+            'video_link' => 'https://www.youtube.com/watch?v=cElhIDdGz7M',
         ];
     }
 }
