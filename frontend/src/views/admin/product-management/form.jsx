@@ -7,7 +7,21 @@ import { useNavigate, useParams } from "react-router-dom";
 import Notification from "../../../components/Notification";
 import { checkFormError } from "../../../utils/checkErrors";
 
-function CustomerForm() {
+function ProductForm() {
+  const selectOption = [
+    {
+      label: "Air System",
+      value: 1,
+    },
+    {
+      label: "Gas Generation",
+      value: 2,
+    },
+    {
+      label: "Instalation",
+      value: 3,
+    },
+  ];
   const { id } = useParams();
   const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState(null);
@@ -17,28 +31,29 @@ function CustomerForm() {
   const { handleSubmit, register, setValue, control, getValues, watch } =
     useForm({
       defaultValues: {
-        description: ''
-      }
+        description: "",
+      },
     });
 
   const { setNotification } = useStateContext();
 
   const onSubmitCreate = (data) => {
     const formData = new FormData();
-    formData.append("company_name", data["company_name"]);
+    formData.append("title", data["title"]);
+    formData.append("type", data["type"]);
     formData.append("description", data["description"]);
     formData.append("image_link", data["image_link"]);
     setIsLoading(true);
     setFormErrors(null);
     axiosClient
-      .post("/customer", formData, {
+      .post("/product", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then(() => {
-        setNotification("Customer Successfully Created");
-        navigate("/administrator/customer-management");
+        setNotification("Product Successfully Created");
+        navigate("/administrator/product-management");
       })
       .catch((error) => {
         setIsLoading(false);
@@ -49,13 +64,14 @@ function CustomerForm() {
       });
   };
 
-  const getCustomerInfo = (id) => {
+  const getProductInfo = (id) => {
     setIsLoading(true);
     axiosClient
-      .get(`/customer/${id}`)
+      .get(`/product/${id}`)
       .then(({ data }) => {
         setIsLoading(false);
-        setValue("company_name", data.data.company_name);
+        setValue("title", data.data.title);
+        setValue("type", data.data.type);
         setValue("description", data.data.description);
         setValue("image_link", data.data.image_link);
       })
@@ -66,23 +82,24 @@ function CustomerForm() {
 
   const onSubmitUpdate = (data) => {
     const formData = new FormData();
-    formData.append("company_name", data["company_name"]);
+    formData.append("title", data["title"]);
+    formData.append("type", data["type"]);
     formData.append("description", data["description"]);
-    if(img != null){
+    if (img != null) {
       formData.append("image_link", data["image_link"]);
     }
     setIsLoading(true);
     setFormErrors(null);
     axiosClient
-      .post(`/customer/update/${id}`, formData, {
+      .post(`/product/update/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then(() => {
         setIsLoading(false);
-        setNotification("Customer Successfully Created");
-        navigate("/administrator/customer-management");
+        setNotification("Product Successfully Created");
+        navigate("/administrator/product-management");
       })
       .catch((error) => {
         setIsLoading(false);
@@ -95,7 +112,7 @@ function CustomerForm() {
 
   useEffect(() => {
     if (id != undefined) {
-      getCustomerInfo(id);
+      getProductInfo(id);
     }
   }, []);
 
@@ -106,12 +123,41 @@ function CustomerForm() {
       <form onSubmit={handleSubmit(id ? onSubmitUpdate : onSubmitCreate)}>
         <CustomInput
           type="text"
-          labelText="Company Name"
+          labelText="Product Name"
           disabled={isLoading}
           errors={formErrors}
-          name="company_name"
+          name="title"
           hookForm={register}
         />
+
+        <label className="form-control w-full">
+          <div className="label">
+            <span className="label-text text-black font-bold">
+              Product Type
+            </span>
+          </div>
+          <Controller
+            control={control}
+            name="type"
+            render={({ field }) => (
+              <select
+                className={`select select-bordered w-full disabled:bg-slate-50 disabled:border-slate-50 bg-slate-50 text-black ${
+                  checkFormError(formErrors, "type") ? "select-error" : ""
+                }`}
+                onChange={(e) => field.onChange(e.target.value)}
+                disabled={isLoading}
+                value={selectOption?.find((e) => e.value == getValues('type'))}
+              >
+                <option disabled selected>
+                  Pick one
+                </option>
+                {selectOption.map((el) => (
+                  <option value={el.value}>{el.label}</option>
+                ))}
+              </select>
+            )}
+          />
+        </label>
 
         <CustomInput
           type="longText"
@@ -200,4 +246,4 @@ function CustomerForm() {
   );
 }
 
-export default CustomerForm;
+export default ProductForm;

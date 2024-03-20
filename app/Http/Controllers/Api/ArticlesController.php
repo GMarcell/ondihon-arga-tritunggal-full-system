@@ -66,7 +66,7 @@ class ArticlesController extends Controller
     {
         $data = $request->validated();
         $newArticle = $article->find($request->id);
-        $image_path = 'storage/' . $article->image_link;
+        $image_path = 'storage/' . $newArticle->image_link;
         if (File::exists(public_path($image_path))) {
             File::delete(public_path($image_path));
         }

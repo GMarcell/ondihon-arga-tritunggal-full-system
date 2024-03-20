@@ -65,7 +65,7 @@ class CustomersController extends Controller
     {
         $data = $request->validated();
         $newCustomer = $customer->find($request->id);
-        $image_path = 'storage/' . $customer->image_link;
+        $image_path = 'storage/' . $newCustomer->image_link;
         if (File::exists(public_path($image_path))) {
             File::delete(public_path($image_path));
         }
