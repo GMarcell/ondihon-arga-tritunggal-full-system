@@ -16,10 +16,11 @@ import SignUp from './views/guest/SignUp'
 import ProductManagementList from './views/admin/product-management/list'
 import UserForm from './views/admin/user-management/form'
 import NewsForm from './views/admin/news-management/form'
-import NewsPreview from './views/admin/news-management/preview'
 import ArticleForm from './views/admin/article-management/form'
 import CustomerForm from './views/admin/customer-management/form'
 import ProductForm from './views/admin/product-management/form'
+import Products from './views/guest/Products'
+import DetailProduct from './views/guest/DetailProduct'
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,14 @@ const router = createBrowserRouter([
       {
         path: '/customers',
         element: <Customers/>
+      },
+      {
+        path: '/product/:id',
+        element: <Products/>
+      },
+      {
+        path: '/product/detail/:id',
+        element: <DetailProduct/>
       },
       {
         path: '/signup',

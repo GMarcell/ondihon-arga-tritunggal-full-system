@@ -1,11 +1,12 @@
-
-import { Button, Typography } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 import React, { useContext } from "react";
 import langContext from "../../hooks/langContext";
 import { serviceWord } from "../../bilinggual";
+import { useNavigate } from "react-router-dom";
 
 export default function ServiceComponent() {
-  const {language} = useContext(langContext)
+  const navigate = useNavigate();
+  const { language } = useContext(langContext);
   return (
     <section className="p-8 bg-gray-200" id="service">
       <div className="container mx-auto mb-10 text-center ">
@@ -44,7 +45,12 @@ export default function ServiceComponent() {
                 >
                   {serviceWord.service1Subtitle[language]}
                 </Typography>
-                <button className="btn btn-outline btn-warning mt-5">{ language == 'en' ? 'See Products' : 'Lihat Produk'}</button>
+                <button
+                  className="btn btn-outline btn-warning mt-5"
+                  onClick={() => navigate("/product/1")}
+                >
+                  {language == "en" ? "See Products" : "Lihat Produk"}
+                </button>
               </div>
             </div>
             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
@@ -73,7 +79,12 @@ export default function ServiceComponent() {
                 >
                   {serviceWord.service2Subtitle[language]}
                 </Typography>
-                <button className="btn btn-outline mt-5">{ language == 'en' ? 'See Products' : 'Lihat Produk'}</button>
+                <button
+                  className="btn btn-outline mt-5"
+                  onClick={() => navigate("/product/2")}
+                >
+                  {language == "en" ? "See Products" : "Lihat Produk"}
+                </button>
               </div>
             </div>
             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
@@ -102,7 +113,12 @@ export default function ServiceComponent() {
                 >
                   {serviceWord.service3Subtitle[language]}
                 </Typography>
-                <button className="btn btn-outline mt-5">{ language == 'en' ? 'See Products' : 'Lihat Produk'}</button>
+                <button
+                  className="btn btn-outline mt-5"
+                  onClick={() => navigate("/product/3")}
+                >
+                  {language == "en" ? "See Products" : "Lihat Produk"}
+                </button>
               </div>
             </div>
             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">

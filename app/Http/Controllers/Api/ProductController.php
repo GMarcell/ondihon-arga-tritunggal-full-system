@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Mockery\Undefined;
 
 class ProductController extends Controller
 {
@@ -19,6 +20,11 @@ class ProductController extends Controller
     public function index(ListRequest $request)
     {
         return ProductResource::collection(Product::query()->where('title', 'LIKE', '%' . $request['search'] . '%')->orderBy('id', 'desc')->paginate($request['per_page'], ['*'], 'page', $request['page']));
+    }
+
+    public function GetBasedOnType(Request $request)
+    {
+        return ProductResource::collection(Product::query()->where('type', 'LIKE', '%' . $request['type'] . '%')->where('title', 'LIKE', '%' . $request['search'] . '%')->orderBy('id', 'desc')->paginate($request['per_page'], ['*'], 'page', $request['page']));
     }
 
     /**
@@ -49,9 +55,14 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Product $product, Request $request)
     {
-        return new ProductResource($product);
+        if($product->title == null){
+            $data = $product->find($request->id);
+            return new ProductResource($data);
+        } else {
+            return new ProductResource($product);
+        }
     }
 
     /**

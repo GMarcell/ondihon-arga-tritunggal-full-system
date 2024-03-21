@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/getProductByType', [ProductController::class, 'GetBasedOnType']);
+Route::get('/getProductInfo/{id}', [ProductController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {

@@ -8,7 +8,7 @@ export function Footer({ lang }) {
   const NavMenu = lang == 'id' ? NAV_MENU_ID : NAV_MENU_EN
 
   return (
-    <footer className="mt-10 bg-gray-900 px-8 pt-12 bottom-0" id="contacts">
+    <footer className="bg-gray-900 px-8 pt-12 bottom-0" id="contacts">
       <div className="container mx-auto">
         <div className="flex flex-wrap justify-center gap-8 md:justify-between">
           <div className="text-center md:text-left">
