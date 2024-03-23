@@ -53,7 +53,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/product/detail/:id',
-        element: <DetailProduct/>
+        element: <DetailProduct type={'Product'}/>
+      },
+      {
+        path: '/news/detail/:id',
+        element: <DetailProduct key={'news'} type={'News'}/>
+      },
+      {
+        path: '/article/detail/:id',
+        element: <DetailProduct key={'article'} type={'Article'}/>
       },
       {
         path: '/signup',

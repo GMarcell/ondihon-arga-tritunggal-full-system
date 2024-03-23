@@ -26,7 +26,6 @@ function Products() {
   const [page, setPage] = useState(1);
   const [Products, setProducts] = useState([]);
   const [lastPage, setLastPage] = useState(0);
-  const [type, setType] = useState(id);
 
   const { register, control, getValues } = useForm({
     defaultValues: {

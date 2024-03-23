@@ -49,9 +49,14 @@ class ArticlesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Article $article)
+    public function show(Article $article, Request $request)
     {
-        return new ArticleResource($article);
+        if($article->title == null){
+            $data = $article->find($request->id);
+            return new ArticleResource($data);
+        } else {
+            return new ArticleResource($article);
+        }
     }
 
     /**

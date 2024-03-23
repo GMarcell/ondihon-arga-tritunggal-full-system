@@ -49,9 +49,14 @@ class NewsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(News $news)
+    public function show(News $news, Request $request)
     {
-        return new NewsResource($news);
+        if($news->title == null){
+            $data = $news->find($request->id);
+            return new NewsResource($data);
+        } else {
+            return new NewsResource($news);
+        }
     }
 
     /**

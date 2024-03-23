@@ -2,19 +2,26 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosClient from "../../axios-client";
 
-function DetailProduct() {
+function DetailProduct(props) {
+  console.log(props);
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [ProductDetail, setProductDetail] = useState(null);
+  const [youtubeID, setYoutubeID] = useState(null);
 
   const getProductInfo = (id) => {
     setIsLoading(true);
     axiosClient
-      .get(`/getProductInfo/${id}`)
+      .get(`/get${props?.type ?? "Product"}Info/${id}`)
       .then(({ data }) => {
-        setIsLoading(false)
+        setIsLoading(false);
         setProductDetail(data?.data);
+        setYoutubeID(
+          data.data.video_link == undefined
+            ? undefined
+            : data.data.video_link?.split("=")?.pop()
+        );
       })
       .catch(() => setIsLoading(false));
   };
@@ -45,9 +52,25 @@ function DetailProduct() {
             />
           </div>
           <h3 className="text-black">{ProductDetail?.description}</h3>
+          {ProductDetail?.video_link && (
+            <div className="flex justify-center items-center mt-3">
+              <iframe
+                src={`https://www.youtube.com/embed/${youtubeID}`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="Embedded youtube"
+                className="w-2/3 max-w-xl"
+              />
+            </div>
+          )}
           <button
             className="btn btn-primary mt-5"
-            onClick={() => navigate("/product/" + ProductDetail?.type)}
+            onClick={() =>
+              props?.type?.toLowerCase() == "product"
+                ? navigate(`/product/` + ProductDetail?.type)
+                : navigate(`/news-article`)
+            }
           >
             Back
           </button>
